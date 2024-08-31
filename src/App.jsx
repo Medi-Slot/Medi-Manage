@@ -5,9 +5,13 @@ import Navbar from "./components/common/navbar/Navbar";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import toast, { Toaster } from 'react-hot-toast';
+import store from "./redux/store";
+import { Provider } from 'react-redux';
+
 function App() {
   return (
     <>
+    <Provider store={store}>
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -17,6 +21,7 @@ function App() {
         </Routes>
         <Toaster/>
       </Router>
+      </Provider>
     </>
   );
 }

@@ -1,32 +1,40 @@
 import React, { useState } from "react";
 import "./Auth.css";
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../Firebase.js";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signupSuccess } from "../../../redux/slices/authSlice.js";
 
 const SignupForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const navigate =useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleSignup= async (e)=>{
+  const handleSignup = async (e) => {
     e.preventDefault();
-    try{
-      await createUserWithEmailAndPassword(auth,email,password);
-      toast.success('User Successfully created!');
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await updateProfile(userCredential.user, { displayName: username });
+      dispatch(signupSuccess(userCredential.user));
+      toast.success("User Successfully created!");
       navigate("/navbar");
       console.log("user created");
-    }catch(err){
-      setError(err.message)
-      toast.error("Signup failed")
+    } catch (err) {
+      setError(err.message);
+      toast.error("Signup failed");
     }
-  }
+  };
   return (
     <div>
-      {error && <p className="error">{error}</p>}
       <form onSubmit={handleSignup}>
         <div className="form-control">
           <label>User name:</label>
