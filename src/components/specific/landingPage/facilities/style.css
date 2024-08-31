@@ -1,0 +1,50 @@
+.landing-page-facilities-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 5vw;
+}
+
+.landing-page-facilities-card {
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  padding: 3%;
+  justify-content: center;
+  border: 2px solid #dddddd;
+  border-radius: 1rem;
+  align-items: center;
+  width: 20vw;
+  cursor: pointer;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.landing-page-facilities-card:hover {
+  transform: scale(1.05);
+  border-color: #057dcd;
+}
+
+.landing-page-facilities h1 {
+  text-align: center;
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 3rem;
+  color: #0b132a;
+}
+
+.landing-page-facilities-card img {
+  width: 300px;
+}
+
+.landing-page-facilities-card h2 {
+  color: #0b132a;
+  margin-bottom: 3%;
+}
+
+.landing-page-facilities-card p {
+  text-align: center;
+  line-height: 1.7rem;
+}

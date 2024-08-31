@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.css";
-import Hospital from "../../../../assets/images/6634380.jpg";
+import Hospital from "../../../../assets/images/6634380.png";
 
 export default function Welcome() {
   return (
