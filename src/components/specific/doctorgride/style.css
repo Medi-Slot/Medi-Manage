@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.doctor-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.doctor-card {
+  background-color: #f0f4ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  transition: transform 0.2s ease;
+}
+
+.doctor-card:hover {
+  transform: scale(1.05);
+}
+
+.doctor-image {
+  width: 60px;
+  height: 60px;
+  background-color: #e0e7ff;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.plus-icon {
+  font-size: 36px;
+  color: #007bff;
+}
+
+.doctor-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  text-align: center;
+}
+
+.add-doctor {
+  background-color: #e0e7ff;
+  justify-content: center;
+}
+
