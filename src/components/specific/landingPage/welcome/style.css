@@ -1,0 +1,66 @@
+.landing-page-welcome {
+  display: flex;
+}
+.landing-page-welcome-left-section {
+  margin-left: 10%;
+  padding-top: 4%;
+}
+.landing-page-welcome-left-section-welcome-text h1:first-child {
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  margin-bottom: 0;
+  font-size: 3.5rem;
+}
+.landing-page-welcome-left-section-welcome-text h1:nth-child(2) {
+  font-family: "Bruno Ace SC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  margin-top: 0.5%;
+  font-size: 3.5rem;
+}
+.landing-page-welcome-left-section-description {
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  width: 40vw;
+}
+.landing-page-welcome-left-section-description p {
+  line-height: 2em;
+}
+/* From Uiverse.io by virus231 */
+.landing-page-welcome-left-section-button {
+  background: #057dcd;
+  border-radius: 7px;
+  border: 2px solid transparent;
+
+  box-shadow: 8px 8px 20px 0px rgba(5, 125, 205, 0.35);
+
+  padding: 10px 40px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  width: 16vw;
+  height: 9vh;
+  margin-top: 6%;
+}
+
+.landing-page-welcome-left-section-button:hover {
+  box-shadow: none;
+  opacity: 80%;
+}
+.landing-page-welcome img {
+  width: 500px;
+  height: auto;
+  position: absolute;
+  right: 5vw;
+}
