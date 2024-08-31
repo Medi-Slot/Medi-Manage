@@ -1,0 +1,52 @@
+.landing-page-review {
+  padding: 2%;
+  border: 2px solid #dddddd;
+  border-radius: 0.7rem;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  margin: 7vh 1vw;
+}
+.landing-page-review:hover {
+  transform: scale(1.05);
+  border-color: #057dcd;
+  cursor: none;
+}
+.landing-page-review-section-1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 30vw;
+}
+.landing-page-review-section-1 img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1.5rem;
+}
+.landing-page-review-section-1 h3 {
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: 500;
+}
+.landing-page-review-section-1 p {
+  color: #4f5665;
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  margin-top: 2%;
+}
+.landing-page-review-section-1-rating {
+  display: flex;
+  align-items: center;
+}
+.landing-page-review-section-1-rating h3 {
+  color: #0b132a;
+}
+.landing-page-review-section-p {
+  text-align: left;
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  margin-top: 2%;
+}

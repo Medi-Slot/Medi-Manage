@@ -1,0 +1,68 @@
+.landing-page-trust {
+  margin: 10% 0;
+  position: relative;
+}
+
+.landing-page-trust h1 {
+  font-family: "Rubik", sans-serif;
+  font-style: normal;
+  text-align: center;
+  font-size: 3rem;
+  color: #0b132a;
+}
+
+.landing-page-trust-p {
+  font-family: "Rubik", sans-serif;
+  text-align: center;
+  margin-top: 2%;
+  color: #4f5665;
+}
+
+.landing-page-trust-review {
+  display: flex;
+  margin: 0 2vw;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.landing-page-trust-scroll-buttons {
+  position: absolute;
+  bottom: -40px;
+  right: 100px;
+  display: flex;
+}
+
+.landing-page-trust-scroll-left,
+.landing-page-trust-scroll-right {
+  border: none;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 3rem;
+  width: 4rem;
+  height: 4rem;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Hover effects for the buttons */
+.landing-page-trust-scroll-left:hover,
+.landing-page-trust-scroll-right:hover {
+  transform: scale(1.1);
+  background-color: #057dcd;
+}
+
+/* Arrow icon styles */
+.landing-page-trust-left-arrow {
+  color: #057dcd;
+  transition: color 0.3s ease;
+}
+
+/* Change arrow color on hover */
+.landing-page-trust-scroll-left:hover .landing-page-trust-left-arrow,
+.landing-page-trust-scroll-right:hover .landing-page-trust-left-arrow {
+  color: #fff;
+}
