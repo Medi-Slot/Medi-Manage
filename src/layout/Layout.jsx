@@ -1,5 +1,6 @@
 import React from 'react';
-import Navbar from '../components/specific/landingPage/Navbar/Navbar';
+import Navbar from '../components/common/navbar/Navbar';
+
 
 
 const Layout = ({ children }) => {
@@ -7,7 +8,7 @@ const Layout = ({ children }) => {
     <>
     <div className="layoutmain" style={{display:'flex',flexDirection:'row'}}>
       <Navbar />
-      <div className='layout-container' style={{marginLeft:'15%'}}>
+      <div className='layout-container' style={{marginLeft:'1%'}}>
       {children}
       </div>
     </div>
