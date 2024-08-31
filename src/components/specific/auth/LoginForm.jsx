@@ -3,18 +3,21 @@ import "./Auth.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../Firebase.js";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate=useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("logged in");
-      toast.success("User Sucessfully Logedin");
+      toast.success("User Sucessfully Loggedin");
+      navigate("/navbar");
     } catch (err) {
       setError(err.message);
       toast.error("Failed to Login")
