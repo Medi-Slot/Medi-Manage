@@ -7,9 +7,13 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import toast, { Toaster } from 'react-hot-toast';
 import Dashboard from "./pages/dashboardPage/Dashboard";
+import store from "./redux/store";
+import { Provider } from 'react-redux';
+
 function App() {
   return (
     <>
+    <Provider store={store}>
       <Router>
       <Routes>
           {/* Routes without Layout */}
@@ -24,6 +28,7 @@ function App() {
         </Routes>
         <Toaster />
       </Router>
+      </Provider>
     </>
   );
 }
