@@ -1,0 +1,4 @@
+.dashboard-sub-container{
+    display: flex;  
+    max-width: 60vw;
+}
