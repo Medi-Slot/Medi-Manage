@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    padding: 0%;
+    margin: 0%;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.sidebar {
+  background-color: #fff;
+  width: 250px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position:relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.nav-items {
+  flex-grow: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 7px 0px;
+  margin: 0px 10px;
+  margin-bottom: 25px;
+  font-size: 18px;
+  color: #A9A9A9;
+  cursor: pointer;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.nav-item i {
+  margin-right: 30px;
+  margin-left: 10px;
+  margin-top: 8px;
+  font-size: 20px;
+}
+
+.nav-item.active,
+.nav-item:hover {
+  background-color: #057DCD;
+  margin: 0px 10px;
+  margin-bottom: 25px;
+  color: #fff;
+  border-radius: 3px;
+}
+.hospital-info {
+    
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .Nav-hospital{
+    display: flex;
+    align-items: center;
+  }
+  .hospital-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  .hospital-name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .hospital-location {
+    font-size: 14px;
+    color: #b3b3b3;
+  }
