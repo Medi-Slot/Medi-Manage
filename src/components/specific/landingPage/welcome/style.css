@@ -3,7 +3,7 @@
 }
 .landing-page-welcome-left-section {
   margin-left: 10%;
-  padding-top: 4%;
+  margin-top: 8%;
 }
 .landing-page-welcome-left-section-welcome-text h1:first-child {
   font-family: "Rubik", sans-serif;
@@ -19,6 +19,7 @@
   font-style: normal;
   margin-top: 0.5%;
   font-size: 3.5rem;
+  margin-bottom: 5%;
 }
 .landing-page-welcome-left-section-description {
   font-family: "Rubik", sans-serif;
