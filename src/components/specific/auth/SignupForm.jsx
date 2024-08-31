@@ -26,7 +26,7 @@ const SignupForm = () => {
       await updateProfile(userCredential.user, { displayName: username });
       dispatch(signupSuccess(userCredential.user));
       toast.success("User Successfully created!");
-      navigate("/navbar");
+      navigate("/dashboard");
       console.log("user created");
     } catch (err) {
       setError(err.message);

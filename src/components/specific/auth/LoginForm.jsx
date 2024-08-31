@@ -23,7 +23,7 @@ const LoginForm = () => {
       dispatch(loginSuccess(userCredential.user));
       console.log("logged in");
       toast.success("User Successfully Logged in");
-      navigate("/navbar");
+      navigate("/dashboard");
     } catch (err) {
       dispatch(loginFailure(err.message));
       setError(err.message);

@@ -5,6 +5,7 @@ import Statistics from "../../components/specific/landingPage/statistics/Statist
 import ChooseUs from "../../components/specific/landingPage/chooseus/ChooseUs";
 import Facilities from "../../components/specific/landingPage/facilities/Facilities";
 
+
 export default function LandingPage() {
   return (
     <div>
