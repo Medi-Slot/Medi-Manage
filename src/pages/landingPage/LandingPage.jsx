@@ -6,6 +6,7 @@ import ChooseUs from "../../components/specific/landingPage/chooseus/ChooseUs";
 import Facilities from "../../components/specific/landingPage/facilities/Facilities";
 import Trust from "../../components/specific/landingPage/trust/Trust";
 
+
 export default function LandingPage() {
   return (
     <div>

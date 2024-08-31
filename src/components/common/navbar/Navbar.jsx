@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import hp from '../../../assets/images/hp.png'
+import hp from '../../../assets/images/hp.png';
 import { IoIosPeople } from "react-icons/io";
 import { HiOutlineLogout } from "react-icons/hi";
 import { LuPlusCircle } from "react-icons/lu";

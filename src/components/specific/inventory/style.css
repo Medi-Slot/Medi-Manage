@@ -1,0 +1,17 @@
+.inventory-item-container {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 1rem;
+    background-color: #f9f9f9;
+  }
+  
+  .inventory-item-container .inventory-item-icon {
+    font-size: 5vw;
+    margin-bottom: 1rem;
+  }
+  
+  .inventory-item-container .inventory-item-name {
+    font-size: 18px;
+    font-weight: bold;
+  }
