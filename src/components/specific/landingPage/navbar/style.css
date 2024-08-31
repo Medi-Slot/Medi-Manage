@@ -1,0 +1,11 @@
+.landing-page-navbar {
+  padding-top: 1%;
+  padding-left: 3%;
+}
+.landing-page-navbar-logo {
+  display: flex;
+}
+.landing-page-navbar-logo img {
+  width: 30px;
+  height: 30px;
+}
