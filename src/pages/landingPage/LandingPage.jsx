@@ -6,6 +6,7 @@ export default function LandingPage() {
     <div>
       <Navbar />
       LandingPage
+      <p>{process.env.REACT_APP_FIREBASE_API_KEY}</p>
     </div>
   );
 }
