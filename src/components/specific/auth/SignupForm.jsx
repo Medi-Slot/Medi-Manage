@@ -3,18 +3,21 @@ import "./Auth.css";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from "../../../Firebase.js";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const navigate =useNavigate();
 
   const handleSignup= async (e)=>{
     e.preventDefault();
     try{
       await createUserWithEmailAndPassword(auth,email,password);
       toast.success('User Successfully created!');
+      navigate("/navbar");
       console.log("user created");
     }catch(err){
       setError(err.message)
