@@ -5,6 +5,7 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import toast, { Toaster } from 'react-hot-toast';
 
+import Navbar from "./components/common/navbar/Navbar";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/signup" element={<Signup/>} />
+          <Route path="/navbar" element={<Navbar />} />
         </Routes>
         <Toaster/>
       </Router>

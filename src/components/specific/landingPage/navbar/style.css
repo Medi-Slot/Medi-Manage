@@ -1,11 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Bruno+Ace+SC&family=Dongle&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 .landing-page-navbar {
-  padding-top: 1%;
-  padding-left: 3%;
+  padding: 1% 3%;
+  display: flex;
+  justify-content: space-between;
 }
 .landing-page-navbar-logo {
   display: flex;
+  align-items: center;
 }
 .landing-page-navbar-logo img {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
+}
+.landing-page-navbar-logo h2 {
+  white-space: nowrap;
+  margin-left: 1rem;
+  font-family: "Bruno Ace SC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.landing-page-navbar-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.landing-page-navbar-list h3 {
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  padding: 0 1rem;
+  transition: all 0.3s ease-in;
+  cursor: pointer;
+}
+.landing-page-navbar-list h3:hover {
+  color: #057dcd;
+}
+
+.landing-page-navbar-login-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.landing-page-navbar-login-box button:first-child {
+  margin-right: 1rem;
+}
+
+.landing-page-navbar-login-box-button-1 {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.landing-page-navbar-login-box-button-1:hover {
+  color: #057dcd;
+}
+.landing-page-navbar-login-box-button-1-txt {
+  z-index: 1;
+  font-weight: 700;
+  letter-spacing: 4px;
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  transition: all 0.3s ease-in; /* Apply transition to all properties with ease-in */
+}
+
+.landing-page-navbar-login-box-button-2 {
+  height: 50px;
+  width: 200px;
+  position: relative;
+  background-color: transparent;
+  cursor: pointer;
+  border: 2px solid #057dcd;
+  overflow: hidden;
+  border-radius: 30px;
+  color: #057dcd;
+  transition: all 0.5s ease-in-out;
+}
+
+.landing-page-navbar-login-box-button-2-txt {
+  z-index: 1;
+  font-weight: 700;
+  letter-spacing: 4px;
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.landing-page-navbar-login-box-button-2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: all 0.5s ease-in-out;
+  background-color: #057dcd;
+  border-radius: 30px;
+  visibility: hidden;
+  height: 10px;
+  width: 10px;
+  z-index: -1;
+}
+
+.landing-page-navbar-login-box-button-2:hover {
+  box-shadow: 1px 1px 200px #057dcd;
+  color: #fff;
+  border: none;
+}
+
+.landing-page-navbar-login-box-button-2:hover::after {
+  visibility: visible;
+  transform: scale(100) translateX(2px);
 }
