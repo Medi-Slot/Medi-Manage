@@ -21,22 +21,22 @@ body {
   overflow-y: auto;
 }
 
-.logo-container {
+.sidebar-logo-container {
   display: flex;
   align-items: center;
   margin-bottom: 40px;
 }
 
-.logo {
+.sidebar-logo {
   font-size: 30px;
   font-weight: bold;
 }
 
-.nav-items {
+.sidebar-nav-items {
   flex-grow: 1;
 }
 
-.nav-item {
+.sidebar-nav-item {
   display: flex;
   align-items: center;
   padding: 7px 0px;
@@ -48,44 +48,44 @@ body {
   transition: color 0.3s, background-color 0.3s;
 }
 
-.nav-item i {
+.sidebar-nav-item i {
   margin-right: 30px;
   margin-left: 10px;
   margin-top: 8px;
   font-size: 20px;
 }
 
-.nav-item.active,
-.nav-item:hover {
+.sidebar-nav-item.active,
+.sidebar-nav-item:hover {
   background-color: #057DCD;
   margin: 0px 10px;
   margin-bottom: 25px;
   color: #fff;
   border-radius: 3px;
 }
-.hospital-info {
+.sidebar-hospital-info {
     
     align-items: center;
     padding: 20px;
     border-radius: 10px;
   }
   
-  .Nav-hospital{
+  .sidebar-Nav-hospital{
     display: flex;
     align-items: center;
   }
-  .hospital-image {
+  .sidebar-hospital-image {
     width: 50px;
     height: 50px;
     margin-right: 10px;
   }
   
-  .hospital-name {
+  .sidebar-hospital-name {
     font-size: 18px;
     font-weight: bold;
   }
   
-  .hospital-location {
+  .sidebar-hospital-location {
     font-size: 14px;
     color: #b3b3b3;
   }
