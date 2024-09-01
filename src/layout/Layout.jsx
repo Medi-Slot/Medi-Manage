@@ -6,10 +6,12 @@ import DoctorProfile from "../components/specific/doctorprofile/DoctorProfile";
 import NewPatient from "../components/specific/patientPage/newPatient/NewPatient";
 import NewMedicine from "../components/specific/inventory/pharmaceuticals/NewMedicine";
 import SetSlot from "../components/specific/appointments/setSlot/SetSlot";
+import UpdateProduct from "../components/specific/inventory/updateProduct/updateProduct";
 
 const Layout = () => {
   const [newPatient, setNewPatient] = useState(false);
   const [newMedicine, setNewMedicine] = useState(false);
+  const [editInventory, setEditInventory] = useState(false);
   const [setSlot, setSetSlot] = useState(false);
   const location = useLocation();
 
@@ -19,6 +21,9 @@ const Layout = () => {
 
   const handleIconClick = () => {
     setNewPatient(true);
+  };
+  const handleEditClick = () => {
+    setEditInventory(true);
   };
   const handleAppointmentClick = () => {
     if (!setSlot) {
@@ -38,11 +43,16 @@ const Layout = () => {
         <div className="layout-container" style={{ width: "67%" }}>
           <Header />
           <Outlet
+           
             context={{
+             
               handleIconClick,
+             
               handleNewMedicineClick,
+              handleEditClick,
               handleAppointmentClick,
             }}
+         
           />
         </div>
         <section
@@ -57,6 +67,7 @@ const Layout = () => {
           {setSlot && <SetSlot />}
           {newPatient && <NewPatient />}
           {newMedicine && <NewMedicine />}
+          {editInventory && <UpdateProduct />}
         </section>
       </div>
     </>

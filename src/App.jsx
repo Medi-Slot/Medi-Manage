@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import PatientPage from "./pages/patientPage/PatientPage";
 import InventoryPage from "./pages/inventoryPage/InventoryPage";
 import Appointments from "./pages/appointmentsPage/Appointments";
+import InventoryOverview from "./pages/inventoryPage/InventoryOverview";
 
 function App() {
   return (
@@ -29,7 +30,11 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/patient" element={<PatientPage />} />
               <Route path="/inventory/medicine" element={<InventoryPage />} />
-              <Route path="/appointments" element={<Appointments/>}/>
+              <Route path="/appointments" element={<Appointments />} />
+              <Route
+                path="/inventory/overview"
+                element={<InventoryOverview />}
+              />
             </Route>
           </Routes>
           <Toaster />
