@@ -6,7 +6,7 @@ import { useOutletContext } from "react-router-dom";
 
 function PatientData() {
   // Initial data
-  const { handleIconClick } = useOutletContext();
+  const { handleNewPatientClick } = useOutletContext();
   const [patients, setPatients] = useState([
     {
       id: 1,
@@ -64,7 +64,7 @@ function PatientData() {
         </h2>
         <FaPlusCircle
           style={{ fontSize: "1.5rem", color: "#4A4A4A", cursor: "pointer" }}
-          onClick={handleIconClick}
+          onClick={handleNewPatientClick}
         />
       </div>
       <table className="patient-data-table">

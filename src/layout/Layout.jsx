@@ -3,23 +3,27 @@ import Navbar from "../components/common/navbar/Navbar";
 import { Outlet } from "react-router-dom";
 import DoctorProfile from "../components/specific/doctorprofile/DoctorProfile";
 import NewPatient from "../components/specific/patientPage/newPatient/NewPatient";
+import NewMedicine from "../components/specific/inventory/pharmaceuticals/NewMedicine"; // Import NewMedicine component
+ // Import NewMedicine component
 
 const Layout = () => {
-  const [newPatient, setnewPatient] = useState(false);
+  const [activeForm, setActiveForm] = useState(null); // Track which form is active
 
-  const handleIconClick = () => {
-    setnewPatient(true);
+  const handleNewPatientClick = () => {
+    setActiveForm("patient");
   };
+
+  const handleNewMedicineClick = () => {
+    setActiveForm("medicine");
+  };
+
   return (
     <>
-      <div
-        className="layoutmain"
-        style={{ display: "flex", flexDirection: "row" }}
-      >
+      <div className="layoutmain" style={{ display: "flex", flexDirection: "row" }}>
         <Navbar />
         <div className="layout-container" style={{ width: "67%" }}>
-          <Outlet context={{ handleIconClick }} />{" "}
-          {/* This renders the nested routes (Inventory, Dashboard, etc.) */}
+          {/* Pass both handlers to Outlet context */}
+          <Outlet context={{ handleNewPatientClick, handleNewMedicineClick }} /> 
         </div>
         <section
           style={{
@@ -29,7 +33,8 @@ const Layout = () => {
             padding: "20px",
           }}
         >
-          {newPatient && <NewPatient />}
+          {activeForm === "patient" && <NewPatient />}
+          {activeForm === "medicine" && <NewMedicine />}
         </section>
       </div>
     </>
