@@ -4,6 +4,7 @@ import patient from "../../assets/images/newpatient.png";
 import bag from "../../assets/images/bag.png";
 import "./style.css"
 import PatientVisitChart from "../../components/specific/dashboard/patientvisitchart/PatientVisitChart";
+import PatientData from "../../components/specific/dashboard/patientdata/PatientData";
 
 const Dashboard = () => {
   return (
@@ -25,6 +26,9 @@ const Dashboard = () => {
       </div>
       <div>
         <PatientVisitChart />
+      </div>
+      <div>
+        <PatientData />
       </div>
     </div>
   );
