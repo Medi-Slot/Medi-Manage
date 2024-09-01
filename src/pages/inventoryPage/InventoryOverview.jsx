@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { setTitle } from "../../redux/slices/titleSlice";
 import "./InventoryOverview.css";
 import { MdModeEdit } from "react-icons/md";
+import { useOutletContext } from "react-router-dom";
 
 export default function InventoryOverview() {
   const dispatch = useDispatch();
@@ -10,12 +11,16 @@ export default function InventoryOverview() {
   useEffect(() => {
     dispatch(setTitle("Inventory"));
   }, [dispatch]);
+  const { handleEditClick } = useOutletContext();
 
   return (
     <div className="inventory-overview-container">
       <div className="inventory-overview-header">
         <h1 className="inventory-overview-title">Overview</h1>
-        <button className="inventory-overview-edit-btn">
+        <button
+          className="inventory-overview-edit-btn"
+          onClick={handleEditClick}
+        >
           <MdModeEdit style={{ paddingRight: "0.5rem" }} />
           Edit
         </button>

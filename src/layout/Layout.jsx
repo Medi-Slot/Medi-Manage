@@ -6,10 +6,12 @@ import DoctorProfile from "../components/specific/doctorprofile/DoctorProfile";
 import NewPatient from "../components/specific/patientPage/newPatient/NewPatient";
 import NewMedicine from "../components/specific/inventory/pharmaceuticals/NewMedicine";
 import SetSlot from "../components/specific/appointments/SetSlot";
+import UpdateProduct from "../components/specific/inventory/updateProduct/updateProduct";
 
 const Layout = () => {
   const [newPatient, setNewPatient] = useState(false);
   const [newMedicine, setNewMedicine] = useState(false);
+  const [editInventory, setEditInventory] = useState(false);
   const location = useLocation();
 
   const handleNewMedicineClick = () => {
@@ -19,14 +21,26 @@ const Layout = () => {
   const handleIconClick = () => {
     setNewPatient(true);
   };
+  const handleEditClick = () => {
+    setEditInventory(true);
+  };
 
   return (
     <>
-      <div className="layoutmain" style={{ display: "flex", flexDirection: "row" }}>
+      <div
+        className="layoutmain"
+        style={{ display: "flex", flexDirection: "row" }}
+      >
         <Navbar />
         <div className="layout-container" style={{ width: "67%" }}>
           <Header />
-          <Outlet context={{ handleIconClick, handleNewMedicineClick }} />
+          <Outlet
+            context={{
+              handleIconClick,
+              handleNewMedicineClick,
+              handleEditClick,
+            }}
+          />
         </div>
         <section
           style={{
@@ -40,6 +54,7 @@ const Layout = () => {
           {location.pathname === "/appointments" && <SetSlot />}
           {newPatient && <NewPatient />}
           {newMedicine && <NewMedicine />}
+          {editInventory && <UpdateProduct />}
         </section>
       </div>
     </>
