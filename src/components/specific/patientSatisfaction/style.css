@@ -1,0 +1,74 @@
+/* PatientSatisfaction.css */
+
+.patient-satisfaction-chart-container {
+    border-top: 1px solid #E8E8E8;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 1rem;
+  }
+  .patient-satisfaction-chart-header{
+    text-align: left;
+    font-size: 1.1rem;
+    margin: 1rem;
+    color: #333;
+  }
+  .patient-satisfaction-chart-sub-container{
+    display: flex;
+  }
+  .patient-satisfaction-chart-wrapper {
+    width: 10vw;
+    height: 10vh;
+    margin: 0;
+    margin-right: 2rem;
+    position: relative;
+  }
+  
+  .patient-satisfaction-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .patient-satisfaction-chart-center-text {
+    position: absolute;
+    top: 80%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #3b82f6;
+    font-size: 16px;
+  }
+  
+  .patient-satisfaction-legend {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: end;
+  }
+  
+  .patient-satisfaction-legend-item {
+    display: flex;
+    align-items:end;
+    justify-content: center;
+    
+    margin-bottom: 10px;
+  }
+  
+  .patient-satisfaction-legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 0.7rem;
+    margin-bottom: 0.3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+  }
+  
+  .patient-satisfaction-legend-item span {
+    color: #555;
+    text-align: right;
+  }
+  
