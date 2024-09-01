@@ -5,6 +5,7 @@ import Statistics from "../../components/specific/landingPage/statistics/Statist
 import ChooseUs from "../../components/specific/landingPage/chooseus/ChooseUs";
 import Facilities from "../../components/specific/landingPage/facilities/Facilities";
 import Trust from "../../components/specific/landingPage/trust/Trust";
+import Footer from "../../components/specific/landingPage/footer/Footer";
 
 
 export default function LandingPage() {
@@ -16,6 +17,7 @@ export default function LandingPage() {
       <ChooseUs />
       <Facilities />
       <Trust />
+      <Footer/>
     </div>
   );
 }
