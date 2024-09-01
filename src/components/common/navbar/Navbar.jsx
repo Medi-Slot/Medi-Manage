@@ -20,13 +20,13 @@ const Navbar = () => {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-      await signOut(auth); 
-      dispatch(logout()); 
-      toast.success("Successfully logged out"); 
-      navigate("/login"); 
+      await signOut(auth);
+      dispatch(logout());
+      toast.success("Successfully logged out");
+      navigate("/login");
     } catch (error) {
-      console.error("Logout Error:", error); 
-      toast.error("Failed to log out"); 
+      console.error("Logout Error:", error);
+      toast.error("Failed to log out");
     }
   };
 
@@ -66,18 +66,20 @@ const Navbar = () => {
           </i>
           <span>Inventory</span>
         </div>
-        <div className="sidebar-nav-item">
+        {/* <div className="sidebar-nav-item">
           <i className="sidebar-fas fa-edit">
             <LuPlusCircle />
           </i>
           <span>Update</span>
-        </div>
+        </div> */}
         <div
           className="sidebar-nav-item"
           onClick={handleLogout}
           style={{ cursor: "pointer" }}
         >
-          <i className="sidebar-fas fa-sign-out-alt"><HiOutlineLogout /></i>
+          <i className="sidebar-fas fa-sign-out-alt">
+            <HiOutlineLogout />
+          </i>
           <span>Logout</span>
         </div>
       </div>

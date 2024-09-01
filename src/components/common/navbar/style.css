@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
-*{
-    padding: 0%;
-    margin: 0%;
+* {
+  padding: 0%;
+  margin: 0%;
 }
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .sidebar {
@@ -13,7 +13,7 @@ body {
   width: 250px;
   padding: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position:relative;
+  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@ body {
   margin: 0px 10px;
   margin-bottom: 25px;
   font-size: 18px;
-  color: #A9A9A9;
+  color: #a9a9a9;
   cursor: pointer;
   transition: color 0.3s, background-color 0.3s;
 }
@@ -57,35 +57,34 @@ body {
 
 .sidebar-nav-item.active,
 .sidebar-nav-item:hover {
-  background-color: #057DCD;
+  background-color: #057dcd;
   margin: 0px 10px;
   margin-bottom: 25px;
   color: #fff;
   border-radius: 3px;
 }
 .sidebar-hospital-info {
-    
-    align-items: center;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  .sidebar-Nav-hospital{
-    display: flex;
-    align-items: center;
-  }
-  .sidebar-hospital-image {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-  }
-  
-  .sidebar-hospital-name {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .sidebar-hospital-location {
-    font-size: 14px;
-    color: #b3b3b3;
-  }
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.sidebar-Nav-hospital {
+  display: flex;
+  align-items: center;
+}
+.sidebar-hospital-image {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.sidebar-hospital-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.sidebar-hospital-location {
+  font-size: 14px;
+  color: #b3b3b3;
+}
