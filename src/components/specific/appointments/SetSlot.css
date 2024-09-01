@@ -1,0 +1,130 @@
+.setslot-main-container {
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.setslot-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.setslot-h1 {
+  font-size: 24px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.setslot-divider {
+  width: 1px;
+  height: 30px;
+  background-color: #ccc;
+  margin: 0 15px;
+}
+
+.setslot-clickable-header {
+  cursor: pointer;
+  color: #4aa4fe;
+}
+
+.setslot-average-time-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.setslot-slots-container {
+  margin-top: 20px;
+}
+
+.setslot-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.setslot-slot-button,
+.setslot-bed-button {
+  flex: 1 1 30%;
+  padding: 10px;
+  text-align: center;
+  background-color: #ddeff8;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.setslot-slot-button.selected {
+  background-color: #4aa4fe;
+  color: white;
+}
+
+.setslot-slot-button:hover,
+.setslot-bed-button:hover {
+  background-color: #38bdf8;
+  color: white;
+}
+
+.setslot-bed-button.booked {
+  background-color: #34d399; /* Green */
+  color: white;
+}
+
+.setslot-bed-button.blocked {
+  background-color: #d1d5db; /* Gray */
+}
+
+.setslot-bed-button.available {
+  background-color: #ddeff8; /* Light Blue */
+}
+
+.setslot-block-button,
+.setslot-allocate-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4aa4fe;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.setslot-beds-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.setslot-legend {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.setslot-legend-item {
+  flex: 1;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 8px;
+  color: white;
+}
+
+.setslot-legend-item.available {
+  background-color: #ddeff8;
+}
+
+.setslot-legend-item.booked {
+  background-color: #34d399;
+}
+
+.setslot-legend-item.blocked {
+  background-color: #d1d5db;
+}

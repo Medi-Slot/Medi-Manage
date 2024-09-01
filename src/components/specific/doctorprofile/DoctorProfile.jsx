@@ -2,6 +2,7 @@ import React from 'react';
 import './style.css';
 import hp from '../../../assets/images/hp.png'
 import PatientSatisfaction from '../patientSatisfaction/PatientSatisfaction';
+import UpcomingAppointment from '../../common/upcomingAppointment/UpcomingAppointment';
 
 const DoctorProfile = () => {
   return (
@@ -25,35 +26,9 @@ const DoctorProfile = () => {
           <h3>4.8</h3>
         </div>
       </div>
+      <hr className="doctor-profile-divider" />
 
-      <div className="doctor-profile-upcoming-appointments">
-        <hr className="doctor-profile-divider" />
-        <h4>Upcoming Appointment</h4>
-        <div className="doctor-profile-date-line">
-          <span className="doctor-profile-appointment-date">July 30, 2022</span>
-        </div>
-        <ul>
-          <li>
-            <div className="doctor-profile-appointment-info">
-              <span className="doctor-profile-time">08:30 am - 09:00 am</span>
-              <div className="doctor-profile-appointment-details">
-                <p className="doctor-profile-patient-name">Harikesh A</p>
-                <p className="doctor-profile-doctor-name">Dr. Shiva</p>
-              </div>
-            </div>
-          </li>
-          <hr className="doctor-profile-appointment-divider" />
-          <li>
-            <div className="doctor-profile-appointment-info">
-              <span className="doctor-profile-time">09:00 am - 09:30 am</span>
-              <div className="doctor-profile-appointment-details">
-                <p className="doctor-profile--name">Surya A</p>
-                <p className="doctor-profile-doctor-name">Dr. Venkat</p>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <UpcomingAppointment size="1rem"/>
       <div>
         <PatientSatisfaction />
       </div>
