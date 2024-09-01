@@ -13,6 +13,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { TbCylinderPlus } from "react-icons/tb";
 import { CgNotes } from "react-icons/cg";
 import { BsScissors } from "react-icons/bs";
+import NewMedicine from '../../components/specific/inventory/pharmaceuticals/NewMedicine';
 
 
 

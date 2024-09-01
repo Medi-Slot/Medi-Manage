@@ -1,0 +1,115 @@
+/* General Styles */
+
+.patient-data-container {
+  background-color: #ffff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 56vw;
+  margin: 2rem 1rem;
+}
+.patient-data-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.patient-data-h2 {
+  color: #4a4a4a;
+}
+
+.patient-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.patient-data-values,
+.patient-data-head {
+  text-align: left;
+  padding: 12px;
+}
+
+.patient-data-head {
+  background-color: #fff;
+  color: #a9a9a9;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.patient-data-table-body {
+  border-top: 1px solid #e8e8e8;
+}
+.patient-data-values {
+  background-color: #fff;
+  color: #a9a9a9;
+}
+.patient-data-values-names {
+  color: #1c1c1c;
+  font-weight: 600;
+  background-color: #fff;
+  text-align: left;
+  padding: 12px;
+}
+
+.patient-data-delete-button {
+  border-bottom: none;
+}
+
+.patient-data-delete-button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  color: #007bff;
+  padding: 0;
+  margin: 0;
+}
+
+.patient-data-delete-button:hover {
+  color: #0056b3;
+}
+
+/* input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+} */
+
+/* Specific Styles for Actions */
+/* .actions button {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-right: 5px;
+  }
+  
+  .actions button:hover {
+    background-color: #c82333;
+  } */
+
+/* Add New Patient Section */
+/* .add-patient-form input {
+    margin-right: 10px;
+    margin-bottom: 0;
+    display: inline-block;
+  }
+  
+  .add-patient-form button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .add-patient-form button:hover {
+    background-color: #218838;
+  }
+  
+   */

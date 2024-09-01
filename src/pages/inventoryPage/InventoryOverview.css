@@ -1,0 +1,84 @@
+.inventory-overview-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.inventory-overview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.inventory-overview-title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.inventory-overview-edit-btn {
+  display: flex;
+  align-items: center;
+  background: none;
+  /* border: 1px solid #858d9d; */
+  color: #007bff;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0.6rem;
+  /* border-radius: 5px; */
+  border: none;
+  font-family: "Poppins";
+  text-decoration: none;
+}
+
+.inventory-overview-edit-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.inventory-overview-content {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.inventory-overview-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #48505e;
+}
+
+.inventory-overview-grid {
+  /* display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px; */
+  display: flex;
+  flex-direction: column;
+}
+
+.inventory-overview-label {
+  font-weight: 600;
+  color: #858d9d;
+  width: 17vw;
+  /* margin-bottom: 1rem; */
+}
+
+.inventory-overview-grid div {
+  margin-bottom: 1.5rem;
+}
+.inventory-overview-info-container {
+  display: flex;
+  align-items: center;
+}
+
+.inventory-overview-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.inventory-overview-grid {
+  display: flex;
+  flex-direction: column;
+}
