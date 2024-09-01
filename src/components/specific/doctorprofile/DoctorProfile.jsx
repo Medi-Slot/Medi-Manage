@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css';
 import hp from '../../../assets/images/hp.png'
+import PatientSatisfaction from '../patientSatisfaction/PatientSatisfaction';
 
 const DoctorProfile = () => {
   return (
@@ -52,6 +53,9 @@ const DoctorProfile = () => {
             </div>
           </li>
         </ul>
+      </div>
+      <div>
+        <PatientSatisfaction />
       </div>
     </div>
   );

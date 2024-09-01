@@ -1,0 +1,74 @@
+/* Inventory.css */
+.inventory-container {
+    width: 80%;
+    margin: auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .inventory-medicine-header {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  .inventory-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .inventory-actions .inventory-button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .inventory-table th, .inventory-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .inventory-availability {
+    font-weight: bold;
+  }
+  
+  .inventory-availability.in-stock {
+    color: green;
+  }
+  
+  .inventory-availability.out-of-stock {
+    color: red;
+  }
+  
+  .inventory-availability.low-stock {
+    color: orange;
+  }
+  
+  .inventory-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .inventory-pagination button {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .inventory-pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  

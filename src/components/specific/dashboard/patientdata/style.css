@@ -64,14 +64,14 @@
     color: #0056b3;
   }
   
-  input[type="text"] {
+  /* input[type="text"] {
     width: calc(100% - 20px);
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-  }
+  } */
   
   /* Specific Styles for Actions */
   /* .actions button {

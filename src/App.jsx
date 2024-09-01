@@ -9,6 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import Dashboard from "./pages/dashboardPage/Dashboard";
 import store from "./redux/store";
 import { Provider } from 'react-redux';
+import InventoryPage from "./pages/inventoryPage/InventoryPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/inventory" element={<Inventory />} />
             <Route path="/dashboard" element={<Dashboard />} />  
+            <Route path="/inventory/medicine" element={<InventoryPage />} />
           </Route>
         </Routes>
         <Toaster />
