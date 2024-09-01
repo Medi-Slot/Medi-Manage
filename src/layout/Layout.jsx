@@ -5,11 +5,12 @@ import Header from "../components/common/header/Header";
 import DoctorProfile from "../components/specific/doctorprofile/DoctorProfile";
 import NewPatient from "../components/specific/patientPage/newPatient/NewPatient";
 import NewMedicine from "../components/specific/inventory/pharmaceuticals/NewMedicine";
-import SetSlot from "../components/specific/appointments/SetSlot";
+import SetSlot from "../components/specific/appointments/setSlot/SetSlot";
 
 const Layout = () => {
   const [newPatient, setNewPatient] = useState(false);
   const [newMedicine, setNewMedicine] = useState(false);
+  const [setSlot, setSetSlot] = useState(false);
   const location = useLocation();
 
   const handleNewMedicineClick = () => {
@@ -19,14 +20,30 @@ const Layout = () => {
   const handleIconClick = () => {
     setNewPatient(true);
   };
+  const handleAppointmentClick = () => {
+    if (!setSlot) {
+      setSetSlot(true);
+    } else {
+      setSlot(false);
+    }
+  };
 
   return (
     <>
-      <div className="layoutmain" style={{ display: "flex", flexDirection: "row" }}>
+      <div
+        className="layoutmain"
+        style={{ display: "flex", flexDirection: "row" }}
+      >
         <Navbar />
         <div className="layout-container" style={{ width: "67%" }}>
           <Header />
-          <Outlet context={{ handleIconClick, handleNewMedicineClick }} />
+          <Outlet
+            context={{
+              handleIconClick,
+              handleNewMedicineClick,
+              handleAppointmentClick,
+            }}
+          />
         </div>
         <section
           style={{
@@ -37,7 +54,7 @@ const Layout = () => {
           }}
         >
           {location.pathname === "/dashboard" && <DoctorProfile />}
-          {location.pathname === "/appointments" && <SetSlot />}
+          {setSlot && <SetSlot />}
           {newPatient && <NewPatient />}
           {newMedicine && <NewMedicine />}
         </section>
