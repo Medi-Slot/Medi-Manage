@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './Inventory.css'; // Import your styles
+import { useOutletContext } from 'react-router-dom';
 
 const InventoryPage = () => {
   // Sample inventory data
+  const { handleNewMedicineClick } = useOutletContext();
   const [products, setProducts] = useState([
     { name: 'paracetamol', price: 430, quantity: 43, threshold: 12, expiry: '11/12/22', availability: 'In-stock' },
     { name: 'paracetamol', price: 257, quantity: 22, threshold: 12, expiry: '21/12/22', availability: 'Out of stock' },
@@ -32,11 +34,13 @@ const InventoryPage = () => {
 
   return (
     <div className="inventory-container">
+      <div className="inventory-sub-container">
       <h1 className='inventory-medicine-header'>Pharmaceuticals</h1>
       <div className="inventory-actions">
-        <button className="inventory-button">Add Product</button>
+        <button className="inventory-button" onClick={handleNewMedicineClick}>Add Product</button>
         <button className="inventory-button">Filters</button>
         <button className="inventory-button">Download all</button>
+      </div>
       </div>
       <table className="inventory-table">
         <thead>
@@ -69,6 +73,7 @@ const InventoryPage = () => {
         <span>Page {currentPage} of {Math.ceil(products.length / productsPerPage)}</span>
         <button onClick={handleNextPage} disabled={currentPage === Math.ceil(products.length / productsPerPage)}>Next</button>
       </div>
+      
     </div>
   );
 };
