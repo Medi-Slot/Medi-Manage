@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import "./style.css";
-import { MdOutlineDeleteOutline } from "react-icons/md";
 import { FaPlusCircle } from "react-icons/fa";
 import { useOutletContext } from "react-router-dom";
 
 function PatientData() {
   // Initial data
-  const { handleIconClick } = useOutletContext();
+  const { handleAppointmentClick, handleIconClick } = useOutletContext();
   const [patients, setPatients] = useState([
     {
       id: 1,
@@ -38,12 +37,7 @@ function PatientData() {
     },
   ]);
 
-  const [newPatient, setNewPatient] = useState({
-    name: "",
-    dateIn: "",
-    symptoms: "",
-    status: "",
-  });
+  const [selectedPatientId, setSelectedPatientId] = useState(null);
 
   // Calculate age from date of birth
   const calculateAge = (dob) => {
@@ -53,16 +47,18 @@ function PatientData() {
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   };
 
-  // Handle adding a new patient
-  const addPatient = () => {
-    setPatients([...patients, { ...newPatient, id: patients.length + 1 }]);
-    setNewPatient({ name: "", dateIn: "", symptoms: "", status: "" });
+  // Handle selecting a patient
+  const handleSelect = (id) => {
+    if (selectedPatientId === id) {
+      // If the clicked patient is already selected, unselect it
+      setSelectedPatientId(null);
+    } else {
+      // Otherwise, select the clicked patient
+      setSelectedPatientId(id);
+    }
+    handleAppointmentClick();
   };
-
-  // Handle deleting a patient
-  const deletePatient = (id) => {
-    setPatients(patients.filter((patient) => patient.id !== id));
-  };
+  
 
   return (
     <div className="patient-data-container">
@@ -82,6 +78,7 @@ function PatientData() {
             <th className="patient-data-head">Age</th>
             <th className="patient-data-head">Weight</th>
             <th className="patient-data-head">Gender</th>
+            <th className="patient-data-head">Select</th>
           </tr>
         </thead>
 
@@ -95,25 +92,21 @@ function PatientData() {
               <td className="patient-data-values">{patient.weight}</td>
               <td className="patient-data-values">{patient.gender}</td>
               <td>
-                <button
-                  onClick={() => deletePatient(patient.id)}
-                  className="patient-data-delete-button"
+                <div
+                  onClick={() => handleSelect(patient.id)}
+                  className={`patient-data-select ${
+                    selectedPatientId === patient.id ? "selected" : ""
+                  }`}
                 >
-                  <MdOutlineDeleteOutline
-                    style={{
-                      fontSize: "1.7rem",
-                      marginTop: "0.5rem",
-                      color: "#FF8E26",
-                      cursor: "pointer",
-                    }}
-                  />
-                </button>
+                  {selectedPatientId === patient.id ? "•" : "○"}
+                </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
+      {/* Uncomment to add a new patient */}
       {/* <h3 className='patient-data-h3'>Add New Patient</h3>
       <input
         type="text"
