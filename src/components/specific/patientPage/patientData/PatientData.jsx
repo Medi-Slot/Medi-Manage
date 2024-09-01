@@ -6,35 +6,35 @@ import { useOutletContext } from "react-router-dom";
 
 function PatientData() {
   // Initial data
-  const { handleNewPatientClick } = useOutletContext();
+  const { handleIconClick } = useOutletContext();
   const [patients, setPatients] = useState([
     {
       id: 1,
       name: "Jenny",
-      dateIn: "Nov 18, 2024",
-      symptoms: "pain",
-      status: "Confirmed",
+      dateofbirth: "18-11-1968",
+      weight: "60kgs",
+      gender: "Female",
     },
     {
       id: 2,
       name: "Albert",
-      dateIn: "Nov 18, 2024",
-      symptoms: "pain",
-      status: "Incoming",
+      dateofbirth: "18-11-2004",
+      weight: "60kgs",
+      gender: "Male",
     },
     {
       id: 3,
       name: "Floyd",
-      dateIn: "Nov 18, 2024",
-      symptoms: "pain",
-      status: "Confirmed",
+      dateofbirth: "18-11-2005",
+      weight: "60kgs",
+      gender: "Male",
     },
     {
       id: 4,
       name: "Marvin",
-      dateIn: "Nov 18, 2024",
-      symptoms: "pain",
-      status: "Cancelled",
+      dateofbirth: "18-11-1994",
+      weight: "60kgs",
+      gender: "Male",
     },
   ]);
 
@@ -44,6 +44,14 @@ function PatientData() {
     symptoms: "",
     status: "",
   });
+
+  // Calculate age from date of birth
+  const calculateAge = (dob) => {
+    const birthDate = new Date(dob.split("-").reverse().join("-"));
+    const ageDifMs = Date.now() - birthDate.getTime();
+    const ageDate = new Date(ageDifMs);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  };
 
   // Handle adding a new patient
   const addPatient = () => {
@@ -64,16 +72,16 @@ function PatientData() {
         </h2>
         <FaPlusCircle
           style={{ fontSize: "1.5rem", color: "#4A4A4A", cursor: "pointer" }}
-          onClick={handleNewPatientClick}
+          onClick={handleIconClick}
         />
       </div>
       <table className="patient-data-table">
         <thead className="patient-data-table-head">
           <tr>
             <th className="patient-data-head">Patient Name</th>
-            <th className="patient-data-head">Date In</th>
-            <th className="patient-data-head">Symptoms</th>
-            <th className="patient-data-head">Status</th>
+            <th className="patient-data-head">Age</th>
+            <th className="patient-data-head">Weight</th>
+            <th className="patient-data-head">Gender</th>
           </tr>
         </thead>
 
@@ -81,9 +89,11 @@ function PatientData() {
           {patients.map((patient) => (
             <tr key={patient.id}>
               <td className="patient-data-values-names">{patient.name}</td>
-              <td className="patient-data-values">{patient.dateIn}</td>
-              <td className="patient-data-values">{patient.symptoms}</td>
-              <td className="patient-data-values">{patient.status}</td>
+              <td className="patient-data-values">
+                {calculateAge(patient.dateofbirth)}
+              </td>
+              <td className="patient-data-values">{patient.weight}</td>
+              <td className="patient-data-values">{patient.gender}</td>
               <td>
                 <button
                   onClick={() => deletePatient(patient.id)}
@@ -104,7 +114,7 @@ function PatientData() {
         </tbody>
       </table>
 
-      {/* <h3 className='patient-data-h2'>Add New Patient</h3>
+      {/* <h3 className='patient-data-h3'>Add New Patient</h3>
       <input
         type="text"
         placeholder="Name"
