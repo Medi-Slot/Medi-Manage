@@ -10,6 +10,7 @@ import Dashboard from "./pages/dashboardPage/Dashboard";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import PatientPage from "./pages/patientPage/PatientPage";
+import InventoryPage from "./pages/inventoryPage/InventoryPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/inventory" element={<Inventory />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/patient" element={<PatientPage />} />
+              <Route path="/inventory/medicine" element={<InventoryPage />} />
             </Route>
           </Routes>
           <Toaster />
