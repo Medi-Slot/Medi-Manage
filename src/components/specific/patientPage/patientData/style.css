@@ -8,9 +8,14 @@
   max-width: 56vw;
   margin: 2rem 1rem;
 }
+.patient-data-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 .patient-data-h2 {
   color: #4a4a4a;
-  margin-bottom: 1rem;
 }
 
 .patient-data-table {
@@ -65,13 +70,13 @@
 }
 
 /* input[type="text"] {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  } */
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+} */
 
 /* Specific Styles for Actions */
 /* .actions button {

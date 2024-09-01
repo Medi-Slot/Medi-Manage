@@ -7,7 +7,7 @@ const DoctorGrid = () => {
   return (
     <div className="doctor-grid">
       <div className="doctor-card add-doctor">
-        <div className="plus-icon">+</div>
+        <div className="doctor-grid-plus-icon">+</div>
         <div className="doctor-name">Add Dr</div>
       </div>
       {doctors.map((doctor, index) => (

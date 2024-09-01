@@ -15,26 +15,26 @@ body {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.form-header {
+.doctor-form-header {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.doctor-image {
+.doctor-form-doctor-image {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   margin-right: 15px;
 }
 
-.form-title h2 {
+.doctor-form-title h2 {
   margin: 0;
   font-size: 24px;
   font-weight: 600;
 }
 
-.form-title p {
+.doctor-form-title p {
   margin: 0;
   font-size: 14px;
   color: #777;
@@ -45,19 +45,19 @@ body {
   flex-direction: column;
 }
 
-.form-group {
+.doctor-form-group {
   margin-bottom: 15px;
   margin-right: 50px;
 }
 
-.form-group label {
+.doctor-form-group label {
   font-size: 14px;
   margin-bottom: 5px;
   color: #333;
 }
 
-.form-group input,
-.form-group textarea {
+.doctor-form-group input,
+.doctor-form-group textarea {
   width: 100%;
   padding: 10px;
   font-size: 14px;
@@ -66,11 +66,11 @@ body {
   outline: none;
 }
 
-.form-group textarea {
+.doctor-form-group textarea {
   resize: none;
 }
 
-.submit-button {
+.doctor-form-submit-button {
   padding: 12px;
   background-color: #007bff;
   color: white;
@@ -81,6 +81,6 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
+.doctor-form-submit-button:hover {
   background-color: #0056b3;
 }

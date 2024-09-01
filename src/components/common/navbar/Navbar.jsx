@@ -32,60 +32,60 @@ const Navbar = () => {
 
   return (
     <div className="sidebar">
-      <div className="logo-container">
-        <h2 className="logo">Medi-Manage</h2>
+      <div className="sidebar-logo-container">
+        <h2 className="sidebar-logo">Medi-Manage</h2>
       </div>
-      <div className="nav-items">
-        <div className="nav-item active">
-          <i className="fas fa-th-large">
+      <div className="sidebar-nav-items">
+        <div className="sidebar-nav-item active">
+          <i className="sidebar-fas fa-th-large">
             <PiGridFourFill />
           </i>
           <span>Dashboard</span>
         </div>
-        <div className="nav-item">
-          <i className="fas fa-calendar-alt">
+        <div className="sidebar-nav-item">
+          <i className="sidebar-fas fa-calendar-alt">
             <TbReportAnalytics />
           </i>
           <span>Appointments</span>
         </div>
-        <div className="nav-item">
-          <i className="fas fa-user-md">
+        <div className="sidebar-nav-item">
+          <i className="sidebar-fas fa-user-md">
             <BiFirstAid />
           </i>
           <span>Doctor</span>
         </div>
-        <div className="nav-item">
-          <i className="fas fa-users">
+        <div className="sidebar-nav-item">
+          <i className="sidebar-fas fa-users">
             <IoIosPeople />
           </i>
           <span>Patient</span>
         </div>
-        <div className="nav-item">
-          <i className="fas fa-boxes">
+        <div className="sidebar-nav-item">
+          <i className="sidebar-fas fa-boxes">
             <MdInsertChartOutlined />
           </i>
           <span>Inventory</span>
         </div>
-        <div className="nav-item">
-          <i className="fas fa-edit">
+        <div className="sidebar-nav-item">
+          <i className="sidebar-fas fa-edit">
             <LuPlusCircle />
           </i>
           <span>Update</span>
         </div>
         <div
-          className="nav-item"
+          className="sidebar-nav-item"
           onClick={handleLogout}
           style={{ cursor: "pointer" }}
         >
-          <i className="fas fa-sign-out-alt"><HiOutlineLogout /></i>
+          <i className="sidebar-fas fa-sign-out-alt"><HiOutlineLogout /></i>
           <span>Logout</span>
         </div>
       </div>
-      <div className="Nav-hospital">
-        <img src={hp} alt="Hospital" className="hospital-image" />
-        <div className="hospital-info">
-          <div className="hospital-name">Harsha Hospital</div>
-          <div className="hospital-location">Bhimavaram</div>
+      <div className="sidebar-Nav-hospital">
+        <img src={hp} alt="Hospital" className="sidebar-hospital-image" />
+        <div className="sidebar-hospital-info">
+          <div className="sidebar-hospital-name">Harsha Hospital</div>
+          <div className="sidebar-hospital-location">Bhimavaram</div>
         </div>
       </div>
     </div>
