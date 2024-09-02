@@ -1,28 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../specific/doctorprofile/style.css";
+import { db, auth } from "../../../Firebase"; 
+import { collection, getDocs } from "firebase/firestore"; 
 
 const UpcomingAppointment = ({ size }) => {
+  const [appointments, setAppointments] = useState([]);
+  const [userId, setUserId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
   const formatDate = (date) => {
     const options = { day: "2-digit", month: "long", year: "numeric" };
     return new Intl.DateTimeFormat("en-GB", options).format(date);
   };
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserId(user.uid);
+      } else {
+        setError("User not authenticated. Please log in.");
+        setLoading(false);
+      }
+    });
+
+    return () => unsubscribe(); 
+  }, []);
+
+  useEffect(() => {
+    if (userId) {
+      const fetchAppointments = async () => {
+        try {
+          const appointmentsRef = collection(db, "Hospitals", userId, "Appointments");
+          const snapshot = await getDocs(appointmentsRef);
+
+          const appointmentsData = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          console.log(appointmentsData)
+          setAppointments(appointmentsData);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching appointments:", error);
+          setError("Failed to load appointments.");
+          setLoading(false);
+        }
+      };
+
+      fetchAppointments();
+    }
+  }, [userId]);
+
   const today = new Date();
   const date = formatDate(today);
 
-  // Array of appointment data
-  const appointments = [
-    {
-      time: "08:30 am - 09:00 am",
-      patientName: "Harikesh A",
-      doctorName: "Dr. Shiva"
-    },
-    {
-      time: "09:00 am - 09:30 am",
-      patientName: "Surya A",
-      doctorName: "Dr. Venkat"
-    }
-  ];
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (error) {
+  //   return <div>{error}</div>;
+  // }
 
   return (
     <div className="doctor-profile-upcoming-appointments">
@@ -32,10 +71,10 @@ const UpcomingAppointment = ({ size }) => {
       </div>
       <ul>
         {appointments.map((appointment, index) => (
-          <React.Fragment key={index}>
+          <React.Fragment key={appointment.id}>
             <li>
               <div className="doctor-profile-appointment-info">
-                <span className="doctor-profile-time">{appointment.time}</span>
+                <span className="doctor-profile-time">{appointment.timeSlot}</span>
                 <div className="doctor-profile-appointment-details">
                   <p className="doctor-profile-patient-name">{appointment.patientName}</p>
                   <p className="doctor-profile-doctor-name">{appointment.doctorName}</p>
