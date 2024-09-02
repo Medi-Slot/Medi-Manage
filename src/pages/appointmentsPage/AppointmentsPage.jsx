@@ -1,14 +1,11 @@
 import AppointmentItem from '../../components/specific/appointments/appointments/AppointmentItem';
 import SetSlots from '../../components/specific/appointments/slots/SetSlots';
 import Beds from '../../components/specific/appointments/beds/BedSelector';
-import './style.css'; // Make sure the path to the CSS file is correct
-import { FaSearch, FaFilter, FaBell } from 'react-icons/fa'; // Importing icons
-
-
+import './style.css'; 
+import { FaSearch, FaFilter, FaBell } from 'react-icons/fa'; 
 const AppointmentsPage = () => {
   return (
     <div className="main-layout">
-      {/* Left Panel with Appointment Items */}
       <div className="left-panel">
         <div className="appointments-header">
           <div className="appointments-title-container">
@@ -29,7 +26,6 @@ const AppointmentsPage = () => {
         <AppointmentItem />
       </div>
 
-      {/* Right Panel with Slots and Beds */}
       <div className="right-panel">
         <SetSlots />
         <Beds />

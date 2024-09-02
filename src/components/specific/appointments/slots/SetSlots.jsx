@@ -8,7 +8,6 @@ const SetSlots = () => {
         <h3>Set Slots</h3>
         <button className="action-button">Add +</button>
       </div>
-      {/* Content or additional elements here */}
     </div>
   );
 };
