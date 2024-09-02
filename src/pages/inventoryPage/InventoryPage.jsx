@@ -111,7 +111,15 @@ const InventoryPage = () => {
   if (loading)
     return (
       <div>
-        <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "80vh",
+          }}
+        >
           <div className="boxes">
             <div className="box">
               <div />
