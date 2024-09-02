@@ -61,10 +61,13 @@ function PatientData() {
 
   // Calculate age from date of birth
   const calculateAge = (dob) => {
-    const birthDate = new Date(dob.split('-').reverse().join('-'));
-    const ageDifMs = Date.now() - birthDate.getTime();
-    const ageDate = new Date(ageDifMs);
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
+    const Dob = new Date(dob);
+    const today = new Date();
+    const ageInMilliseconds = today.valueOf() - Dob.valueOf();
+    const ageInYears = Math.floor(
+      ageInMilliseconds / 1000 / 60 / 60 / 24 / 365.25
+    ); // 365.25 for leap years
+    return ageInYears;
   };
 
   if (!userId) {
