@@ -1,40 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SetSlot.css";
 
 const SetSlot = () => {
   const [selectedSlot, setSelectedSlot] = useState("2:00 PM");
+  const [averageTime, setAverageTime] = useState("20"); // Default average time in minutes
+  const [noOfBeds, setNoOfBeds] = useState("12"); // Default number of beds
   const [view, setView] = useState("slots");
-  const [bedStatus, setBedStatus] = useState({
-    "001": "available",
-    "002": "blocked",
-    "003": "booked",
-    "004": "available",
-    "005": "available",
-    "006": "blocked",
-    "007": "available",
-    "008": "booked",
-    "009": "available",
-    "010": "available",
-    "011": "available",
-    "012": "blocked",
-  });
+  const [bedStatus, setBedStatus] = useState({});
+  const [timeSlots, setTimeSlots] = useState([]);
 
-  const timeSlots = [
-    "1:00 PM",
-    "1:30 PM",
-    "2:00 PM",
-    "2:30 PM",
-    "3:00 PM",
-    "3:30 PM",
-    "4:00 PM",
-    "5:00 PM",
-    "5:30 PM",
-    "6:00 PM",
-    "6:30 PM",
-    "7:00 PM",
-  ];
+  useEffect(() => {
+    // Generate beds based on noOfBeds
+    const beds = {};
+    for (let i = 1; i <= Number(noOfBeds); i++) {
+      beds[`00${i.toString().padStart(3, '0')}`] = "available";
+    }
+    setBedStatus(beds);
+  }, [noOfBeds]);
 
-  const bedNumbers = Object.keys(bedStatus);
+  useEffect(() => {
+    // Generate time slots based on averageTime
+    const slots = [];
+    const startTime = new Date("2024-01-01T10:00:00");
+    const interval = Number(averageTime) * 60 * 1000;
+
+    for (let i = 0; i < 20; i++) {
+      const time = new Date(startTime.getTime() + i * interval);
+      const hours = time.getHours();
+      const minutes = time.getMinutes();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      const formattedHours = hours % 12 || 12;
+      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+      slots.push(`${formattedHours}:${formattedMinutes} ${ampm}`);
+    }
+    setTimeSlots(slots);
+  }, [averageTime]);
 
   const handleSlotClick = (time) => {
     setSelectedSlot(time);
@@ -45,6 +45,24 @@ const SetSlot = () => {
       setBedStatus({ ...bedStatus, [bed]: "booked" });
     } else if (bedStatus[bed] === "booked") {
       setBedStatus({ ...bedStatus, [bed]: "available" });
+    }
+  };
+
+  const handleAverageTimeChange = (e) => {
+    setAverageTime(e.target.value);
+  };
+
+  const handleNoOfBedsChange = (e) => {
+    setNoOfBeds(e.target.value);
+  };
+
+  const handleKeyDown = (e, type) => {
+    if (e.key === 'Enter') {
+      if (type === "averageTime") {
+        setAverageTime(e.target.value);
+      } else if (type === "noOfBeds") {
+        setNoOfBeds(e.target.value);
+      }
     }
   };
 
@@ -59,7 +77,6 @@ const SetSlot = () => {
         >
           Set Slots
         </h1>
-
         <div className="setslot-divider" />
         <h1
           onClick={() => setView("beds")}
@@ -74,19 +91,21 @@ const SetSlot = () => {
       {view === "slots" ? (
         <>
           <label htmlFor="averageTime" className="setslot-average-time-header">
-            Average Time For OP
+            Average Time For OP (minutes)
           </label>
           <input
             type="text"
             name="averageTime"
             id="averageTime"
-            placeholder="5 min"
+            value={averageTime}
+            onChange={handleAverageTimeChange}
+            onKeyDown={(e) => handleKeyDown(e, "averageTime")}
             className="setslot-average-time-input"
           />
           <div className="setslot-slots-container">
             <h3>Morning slots</h3>
             <div className="setslot-slots">
-              {timeSlots.slice(0, 7).map((time, index) => (
+              {timeSlots.slice(0, timeSlots.length / 2).map((time, index) => (
                 <button
                   key={index}
                   className={`setslot-slot-button ${
@@ -100,7 +119,7 @@ const SetSlot = () => {
             </div>
             <h3>Evening slots</h3>
             <div className="setslot-slots">
-              {timeSlots.slice(7).map((time, index) => (
+              {timeSlots.slice(timeSlots.length / 2).map((time, index) => (
                 <button
                   key={index}
                   className={`setslot-slot-button ${
@@ -118,20 +137,22 @@ const SetSlot = () => {
         <>
           <div className="setslot-beds-container">
             <label
-              htmlFor="averageTime"
+              htmlFor="noOfBeds"
               className="setslot-average-time-header"
             >
               Beds Count
             </label>
             <input
               type="text"
-              name="averageTime"
-              id="averageTime"
-              placeholder="Total Beds"
+              name="noOfBeds"
+              id="noOfBeds"
+              value={noOfBeds}
+              onChange={handleNoOfBedsChange}
+              onKeyDown={(e) => handleKeyDown(e, "noOfBeds")}
               className="setslot-average-time-input"
               style={{ marginTop: "0" }}
             />
-            {bedNumbers.map((bed, index) => (
+            {Object.keys(bedStatus).map((bed, index) => (
               <button
                 key={index}
                 className={`setslot-bed-button ${bedStatus[bed]}`}
