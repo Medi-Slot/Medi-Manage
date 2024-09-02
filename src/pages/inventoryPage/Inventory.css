@@ -1,98 +1,293 @@
 /* Inventory.css */
 .inventory-container {
-    width: 90%;
-    margin: 2rem auto;
-    font-family:'Poppins', sans-serif;
+  width: 90%;
+  margin: 2rem auto;
+  font-family: "Poppins", sans-serif;
+}
+.inventory-sub-container {
+  display: flex;
+  justify-content: space-between;
+}
+.inventory-medicine-header {
+  color: #383e49;
+  text-align: left;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  margin-left: 0.5rem;
+}
+
+.inventory-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 1rem;
+}
+
+.inventory-actions .inventory-button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #fff;
+  border: 1px solid #d0d3d9;
+  color: #5d6679;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+}
+.inventory-actions .inventory-button:hover {
+  background-color: #1366d9;
+  color: #fff;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.inventory-table th,
+.inventory-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+.inventory-table th {
+  color: #667085;
+  font-weight: 500;
+}
+.inventory-table td {
+  color: #48505e;
+  font-weight: 300;
+}
+
+.inventory-availability {
+  font-weight: bold;
+}
+
+.inventory-availability.in-stock {
+  color: #10a760;
+}
+
+.inventory-availability.out-of-stock {
+  color: red;
+}
+
+.inventory-availability.low-stock {
+  color: orange;
+}
+
+.inventory-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inventory-pagination button {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.inventory-pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.no-inventory-items {
+  display: flex;
+  align-items: center;
+}
+.inventory-page-container {
+  gap: 30px;
+}
+/* From Uiverse.io by Nawsome */
+.boxes {
+  --size: 32px;
+  --duration: 800ms;
+  height: calc(var(--size) * 2);
+  width: calc(var(--size) * 3);
+  position: relative;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  margin-top: calc(var(--size) * 1.5 * -1);
+  transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+}
+
+.boxes .box {
+  width: var(--size);
+  height: var(--size);
+  top: 0;
+  left: 0;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.boxes .box:nth-child(1) {
+  transform: translate(100%, 0);
+  -webkit-animation: box1 var(--duration) linear infinite;
+  animation: box1 var(--duration) linear infinite;
+}
+
+.boxes .box:nth-child(2) {
+  transform: translate(0, 100%);
+  -webkit-animation: box2 var(--duration) linear infinite;
+  animation: box2 var(--duration) linear infinite;
+}
+
+.boxes .box:nth-child(3) {
+  transform: translate(100%, 100%);
+  -webkit-animation: box3 var(--duration) linear infinite;
+  animation: box3 var(--duration) linear infinite;
+}
+
+.boxes .box:nth-child(4) {
+  transform: translate(200%, 0);
+  -webkit-animation: box4 var(--duration) linear infinite;
+  animation: box4 var(--duration) linear infinite;
+}
+
+.boxes .box > div {
+  --background: #5c8df6;
+  --top: auto;
+  --right: auto;
+  --bottom: auto;
+  --left: auto;
+  --translateZ: calc(var(--size) / 2);
+  --rotateY: 0deg;
+  --rotateX: 0deg;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--background);
+  top: var(--top);
+  right: var(--right);
+  bottom: var(--bottom);
+  left: var(--left);
+  transform: rotateY(var(--rotateY)) rotateX(var(--rotateX))
+    translateZ(var(--translateZ));
+}
+
+.boxes .box > div:nth-child(1) {
+  --top: 0;
+  --left: 0;
+}
+
+.boxes .box > div:nth-child(2) {
+  --background: #145af2;
+  --right: 0;
+  --rotateY: 90deg;
+}
+
+.boxes .box > div:nth-child(3) {
+  --background: #447cf5;
+  --rotateX: -90deg;
+}
+
+.boxes .box > div:nth-child(4) {
+  --background: #dbe3f4;
+  --top: 0;
+  --left: 0;
+  --translateZ: calc(var(--size) * 3 * -1);
+}
+
+@-webkit-keyframes box1 {
+  0%,
+  50% {
+    transform: translate(100%, 0);
   }
-  .inventory-sub-container{
-    display: flex;
-    justify-content: space-between
+
+  100% {
+    transform: translate(200%, 0);
   }
-  .inventory-medicine-header {
-    color: #383E49;
-    text-align: left;
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    margin-left: 0.5rem;
+}
+
+@keyframes box1 {
+  0%,
+  50% {
+    transform: translate(100%, 0);
   }
-  
-  .inventory-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    gap: 1rem;
+
+  100% {
+    transform: translate(200%, 0);
   }
-  
-  .inventory-actions .inventory-button {
-    padding: 10px 15px;
-    border: none;
-    background-color: #fff;
-    border: 1px solid #D0D3D9;
-    color: #5D6679;
-    cursor: pointer;
-    border-radius: 5px;
-    font-family:'Poppins', sans-serif;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+@-webkit-keyframes box2 {
+  0% {
+    transform: translate(0, 100%);
   }
-  .inventory-actions .inventory-button:hover{
-    background-color: #1366D9;
-    color: #fff;
+
+  50% {
+    transform: translate(0, 0);
   }
-  
-  .inventory-table {
-    
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 2rem;
-    
+
+  100% {
+    transform: translate(100%, 0);
   }
-  
-  .inventory-table th, .inventory-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+}
+
+@keyframes box2 {
+  0% {
+    transform: translate(0, 100%);
   }
-  .inventory-table th{
-    color: #667085;
-    font-weight: 500;
+
+  50% {
+    transform: translate(0, 0);
   }
-  .inventory-table td{
-    color: #48505E;
-    font-weight: 300;
+
+  100% {
+    transform: translate(100%, 0);
   }
-  
-  .inventory-availability {
-    font-weight: bold;
+}
+
+@-webkit-keyframes box3 {
+  0%,
+  50% {
+    transform: translate(100%, 100%);
   }
-  
-  .inventory-availability.in-stock {
-    color: #10A760;
+
+  100% {
+    transform: translate(0, 100%);
   }
-  
-  .inventory-availability.out-of-stock {
-    color: red;
+}
+
+@keyframes box3 {
+  0%,
+  50% {
+    transform: translate(100%, 100%);
   }
-  
-  .inventory-availability.low-stock {
-    color: orange;
+
+  100% {
+    transform: translate(0, 100%);
   }
-  
-  .inventory-pagination {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+}
+
+@-webkit-keyframes box4 {
+  0% {
+    transform: translate(200%, 0);
   }
-  
-  .inventory-pagination button {
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    background-color: white;
-    cursor: pointer;
-    border-radius: 5px;
+
+  50% {
+    transform: translate(200%, 100%);
   }
-  
-  .inventory-pagination button:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+
+  100% {
+    transform: translate(100%, 100%);
   }
-  
+}
+
+@keyframes box4 {
+  0% {
+    transform: translate(200%, 0);
+  }
+
+  50% {
+    transform: translate(200%, 100%);
+  }
+
+  100% {
+    transform: translate(100%, 100%);
+  }
+}

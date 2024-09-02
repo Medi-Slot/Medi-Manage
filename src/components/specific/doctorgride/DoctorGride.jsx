@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./style.css";
 import { useOutletContext } from "react-router-dom";
 import { getDocs, collection } from "firebase/firestore";
-import { db, auth } from "../../../Firebase"; // Adjust the path to your Firebase config
+import { db, auth } from "../../../Firebase";
 
 const DoctorGrid = () => {
   const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
   const { handleNewDoctorClick, handleDoctorProfileClick } = useOutletContext();
+  const [activeDoctorId, setActiveDoctorId] = useState(null);
 
   useEffect(() => {
     const fetchDoctors = async (userId) => {
@@ -23,6 +25,8 @@ const DoctorGrid = () => {
         setDoctors(doctorList);
       } catch (error) {
         console.error("Error fetching doctors: ", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching data
       }
     };
 
@@ -32,9 +36,56 @@ const DoctorGrid = () => {
       }
     });
 
-    // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
+
+  const handleCardClick = (doctorId) => {
+    setActiveDoctorId(doctorId); // Set the active card ID
+    handleDoctorProfileClick(doctorId);
+  };
+
+  if (loading) {
+    return (
+      <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "80vh",
+          }}
+        >
+          <div className="boxes">
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="doctor-grid">
@@ -44,9 +95,11 @@ const DoctorGrid = () => {
       </div>
       {doctors.map((doctor) => (
         <div
-          className="doctor-card"
+          className={`doctor-card doctor-card-${
+            activeDoctorId === doctor.id ? "active" : ""
+          }`} // Add active class conditionally
           key={doctor.id}
-          onClick={() => handleDoctorProfileClick(doctor.id)}
+          onClick={() => handleCardClick(doctor.id)}
         >
           <div
             className="doctor-image"
@@ -58,6 +111,7 @@ const DoctorGrid = () => {
             }}
           ></div>
           <div className="doctor-name">{doctor.doctorName}</div>
+          <div className="doctor-qualification">{doctor.qualification} </div>
         </div>
       ))}
     </div>

@@ -8,14 +8,15 @@ import NewMedicine from "../components/specific/inventory/pharmaceuticals/NewMed
 import SetSlot from "../components/specific/appointments/setSlot/SetSlot";
 import UpdateProduct from "../components/specific/inventory/updateProduct/updateProduct";
 import DoctorForm from "../components/specific/doctorform/DoctorForm";
+import DoctorProfile from "../components/specific/doctorprofile/DoctorProfile";
 
 const Layout = () => {
   const [activeComponent, setActiveComponent] = useState(null);
   const [selectedPatientId, setSelectedPatientId] = useState(null);
+  const [selectedDoctorId, setSelectedDoctorId] = useState(null);
 
   const location = useLocation();
 
-  // Reset the activeComponent state when the route changes
   useEffect(() => {
     if (location.pathname === "/dashboard") {
       setActiveComponent("hospitalProfile");
@@ -24,7 +25,6 @@ const Layout = () => {
     }
   }, [location.pathname]);
 
-  // Event handlers that set the active component
   const handleNewMedicineClick = () => {
     setActiveComponent("newMedicine");
   };
@@ -33,8 +33,9 @@ const Layout = () => {
     setActiveComponent("newDoctor");
   };
 
-  const handleDoctorProfileClick = () => {
-    setActiveComponent("hospitalProfile");
+  const handleDoctorProfileClick = (doctorId) => {
+    setActiveComponent("doctorProfile");
+    setSelectedDoctorId(doctorId);
   };
 
   const handleIconClick = () => {
@@ -47,11 +48,9 @@ const Layout = () => {
 
   const handleAppointmentClick = (patientId) => {
     if (selectedPatientId === patientId) {
-      // If the same patient is selected again, close the component
       setActiveComponent(null);
       setSelectedPatientId(null);
     } else {
-      // Otherwise, open the component for the new patient
       setActiveComponent("setSlot");
       setSelectedPatientId(patientId);
     }
@@ -91,6 +90,9 @@ const Layout = () => {
         {activeComponent === "newMedicine" && <NewMedicine />}
         {activeComponent === "editInventory" && <UpdateProduct />}
         {activeComponent === "newDoctor" && <DoctorForm />}
+        {activeComponent === "doctorProfile" && (
+          <DoctorProfile doctorId={selectedDoctorId} />
+        )}
       </section>
     </div>
   );

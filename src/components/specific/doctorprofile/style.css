@@ -18,8 +18,9 @@ body {
 .doctor-profile h2 {
   text-align: center;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   font-size: 24px;
+  color: #393e46;
 }
 
 .doctor-profile-doctor-stats {
@@ -73,7 +74,7 @@ body {
 .doctor-profile-divider {
   border: 0;
   border-top: 1px solid #e0e0e0;
-  margin: 10px 0;
+  margin: 30px 0;
 }
 
 .doctor-profile-date-line {
@@ -155,4 +156,11 @@ body {
   border: 0;
   border-top: 1px solid #e0e0e0;
   margin: 0;
+}
+.doctor-profile-details-group h3 {
+  margin: 0.7rem 0rem;
+  color: #393e46;
+}
+.doctor-profile-details-group p {
+  color: #a9a9a9;
 }
