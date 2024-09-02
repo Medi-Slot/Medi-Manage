@@ -10,7 +10,9 @@ const DoctorGrid = () => {
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctorId, setSelectedDoctorId] = useState(null); // State to track selected doctor
   const { handleNewDoctorClick, handleDoctorProfileClick } = useOutletContext();
-  const dispatch=useDispatch();
+  const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchDoctors = async (userId) => {
@@ -27,6 +29,8 @@ const DoctorGrid = () => {
         setDoctors(doctorList);
       } catch (error) {
         console.error("Error fetching doctors: ", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -40,19 +44,63 @@ const DoctorGrid = () => {
   }, []);
 
   const handleDoctorClick = (doctorId) => {
-    const requiredDoctor=doctors.reduce(()=>{
-      return doctors.find((doctor)=> doctor.id==doctorId)
-    })
-    setSelectedDoctorId(doctorId); 
-    console.log(requiredDoctor)
-    dispatch(setDoctorData({
-      docId: requiredDoctor.id,
-      docName: requiredDoctor.doctorName,
-    }));
-    if(doctorId==selectedDoctorId){
+    const requiredDoctor = doctors.reduce(() => {
+      return doctors.find((doctor) => doctor.id == doctorId);
+    });
+    setSelectedDoctorId(doctorId);
+    console.log(requiredDoctor);
+    dispatch(
+      setDoctorData({
+        docId: requiredDoctor.id,
+        docName: requiredDoctor.doctorName,
+      })
+    );
+    if (doctorId == selectedDoctorId) {
       setSelectedDoctorId(null);
     }
   };
+  if (loading) {
+    return (
+      <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "30vh",
+          }}
+        >
+          <div className="boxes">
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="doctor-grid">
