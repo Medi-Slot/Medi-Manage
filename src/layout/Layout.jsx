@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, Outlet } from "react-router-dom";
 import Navbar from "../components/common/navbar/Navbar";
 import Header from "../components/common/header/Header";
@@ -7,82 +7,84 @@ import NewPatient from "../components/specific/patientPage/newPatient/NewPatient
 import NewMedicine from "../components/specific/inventory/pharmaceuticals/NewMedicine";
 import SetSlot from "../components/specific/appointments/setSlot/SetSlot";
 import UpdateProduct from "../components/specific/inventory/updateProduct/updateProduct";
-import DoctorForm from "../components/specific/doctorform/DoctorForm"
+import DoctorForm from "../components/specific/doctorform/DoctorForm";
 
 const Layout = () => {
-  const [newPatient, setNewPatient] = useState(false);
-  const [newMedicine, setNewMedicine] = useState(false);
-  const [editInventory, setEditInventory] = useState(false);
-  const [setSlot, setSetSlot] = useState(false);
-  const [setDoctor,setNewDoctor] = useState(false);
-  const [setDoctorProfile,setNewDoctorProfile]=useState(false);
+  // Single state variable to track which component is active
+  const [activeComponent, setActiveComponent] = useState(null);
 
   const location = useLocation();
 
-  const handleNewMedicineClick = () => {
-    setNewMedicine(true);
-  };
-  const handleNewDoctorClick = () => {
-    setNewDoctor(true);
-  };
-  const handleDoctorProfileClick = () => {
-    setNewDoctorProfile(true);
-  };
-  const handleIconClick = () => {
-    setNewPatient(true);
-  };
-  const handleEditClick = () => {
-    setEditInventory(true);
-  };
-  const handleAppointmentClick = () => {
-    if (!setSlot) {
-      setSetSlot(true);
+  // Reset the activeComponent state when the route changes
+  useEffect(() => {
+    if (location.pathname === "/dashboard") {
+      setActiveComponent("doctorProfile");
     } else {
-      setSlot(false);
+      setActiveComponent(null);
     }
+  }, [location.pathname]);
+
+  // Event handlers that set the active component
+  const handleNewMedicineClick = () => {
+    setActiveComponent("newMedicine");
+  };
+
+  const handleNewDoctorClick = () => {
+    setActiveComponent("newDoctor");
+  };
+
+  const handleDoctorProfileClick = () => {
+    setActiveComponent("doctorProfile");
+  };
+
+  const handleIconClick = () => {
+    setActiveComponent("newPatient");
+  };
+
+  const handleEditClick = () => {
+    setActiveComponent("editInventory");
+  };
+
+  const handleAppointmentClick = () => {
+    setActiveComponent((prev) => (prev === "setSlot" ? null : "setSlot"));
   };
 
   return (
-    <>
-      <div
-        className="layoutmain"
-        style={{ display: "flex", flexDirection: "row" }}
-      >
-        <Navbar />
-        <div className="layout-container" style={{ width: "67%" }}>
-          <Header />
-          <Outlet
-           
-            context={{
-             
-              handleIconClick,
-              handleNewDoctorClick,
-              handleNewMedicineClick,
-              handleEditClick,
-              handleAppointmentClick,
-              handleDoctorProfileClick,
-            }}
-         
-          />
-        </div>
-        <section
-          style={{
-            width: "300px",
-            backgroundColor: "white",
-            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-            padding: "20px",
+    <div
+      className="layoutmain"
+      style={{ display: "flex", flexDirection: "row" }}
+    >
+      <Navbar />
+      <div className="layout-container" style={{ width: "67%" }}>
+        <Header />
+        <Outlet
+          context={{
+            handleIconClick,
+            handleNewDoctorClick,
+            handleNewMedicineClick,
+            handleEditClick,
+            handleAppointmentClick,
+            handleDoctorProfileClick,
           }}
-        >
-          {location.pathname === "/dashboard" && <DoctorProfile />}
-          {setSlot && <SetSlot />}
-          {newPatient && <NewPatient />}
-          {newMedicine && <NewMedicine />}
-          {editInventory && <UpdateProduct />}
-          {setDoctor && <DoctorForm />}
-          {setDoctorProfile && <DoctorProfile />}
-        </section>
+        />
       </div>
-    </>
+      <section
+        style={{
+          width: "300px",
+          backgroundColor: "white",
+          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+          padding: "20px",
+        }}
+      >
+        {/* Conditionally render the component based on the activeComponent state */}
+        {activeComponent === "doctorProfile" && <DoctorProfile />}
+        {activeComponent === "setSlot" && <SetSlot />}
+        {activeComponent === "newPatient" && <NewPatient />}
+        {activeComponent === "newMedicine" && <NewMedicine />}
+        {activeComponent === "editInventory" && <UpdateProduct />}
+        {activeComponent === "newDoctor" && <DoctorForm />}
+      </section>
+    </div>
   );
 };
 
