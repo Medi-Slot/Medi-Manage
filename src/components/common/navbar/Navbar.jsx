@@ -9,7 +9,7 @@ import { BiFirstAid } from "react-icons/bi";
 import { TbReportAnalytics } from "react-icons/tb";
 import { PiGridFourFill } from "react-icons/pi";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { auth } from "../../../Firebase";
 import { signOut } from "firebase/auth";
 import { logout } from "../../../redux/slices/authSlice";
@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -30,48 +31,31 @@ const Navbar = () => {
     }
   };
 
+  const navItems = [
+    { label: "Dashboard", icon: <PiGridFourFill />, route: "/dashboard" },
+    { label: "Appointments", icon: <TbReportAnalytics />, route: "/appointments" },
+    { label: "Doctor", icon: <BiFirstAid />, route: "/doctor" },
+    { label: "Patient", icon: <IoIosPeople />, route: "/patient" },
+    { label: "Inventory", icon: <MdInsertChartOutlined />, route: "/inventory" },
+  ];
+
   return (
     <div className="sidebar">
       <div className="sidebar-logo-container">
         <h2 className="sidebar-logo">Medi-Manage</h2>
       </div>
       <div className="sidebar-nav-items">
-        <div className="sidebar-nav-item active">
-          <i className="sidebar-fas fa-th-large">
-            <PiGridFourFill />
-          </i>
-          <span>Dashboard</span>
-        </div>
-        <div className="sidebar-nav-item">
-          <i className="sidebar-fas fa-calendar-alt">
-            <TbReportAnalytics />
-          </i>
-          <span>Appointments</span>
-        </div>
-        <div className="sidebar-nav-item">
-          <i className="sidebar-fas fa-user-md">
-            <BiFirstAid />
-          </i>
-          <span>Doctor</span>
-        </div>
-        <div className="sidebar-nav-item">
-          <i className="sidebar-fas fa-users">
-            <IoIosPeople />
-          </i>
-          <span>Patient</span>
-        </div>
-        <div className="sidebar-nav-item">
-          <i className="sidebar-fas fa-boxes">
-            <MdInsertChartOutlined />
-          </i>
-          <span>Inventory</span>
-        </div>
-        {/* <div className="sidebar-nav-item">
-          <i className="sidebar-fas fa-edit">
-            <LuPlusCircle />
-          </i>
-          <span>Update</span>
-        </div> */}
+        {navItems.map((item, index) => (
+          <NavLink
+            key={index}
+            to={item.route}
+            className={({ isActive }) => `sidebar-nav-item ${isActive ? "active" : ""}`}
+          >
+            <i className="sidebar-fas">{item.icon}</i>
+            <span>{item.label}</span>
+          </NavLink>
+        ))}
+
         <div
           className="sidebar-nav-item"
           onClick={handleLogout}
@@ -83,8 +67,11 @@ const Navbar = () => {
           <span>Logout</span>
         </div>
       </div>
-      <div className="sidebar-Nav-hospital" onClick={() => navigate('/dashboard')}>
-        <img src={hp} alt="Hospital" className="sidebar-hospital-image"  />
+      <div
+        className="sidebar-Nav-hospital"
+        onClick={() => navigate("/dashboard")}
+      >
+        <img src={hp} alt="Hospital" className="sidebar-hospital-image" />
         <div className="sidebar-hospital-info">
           <div className="sidebar-hospital-name">Harsha Hospital</div>
           <div className="sidebar-hospital-location">Bhimavaram</div>

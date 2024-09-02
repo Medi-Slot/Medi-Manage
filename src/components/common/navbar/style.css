@@ -38,6 +38,7 @@ body {
 
 .sidebar-nav-item {
   display: flex;
+  text-decoration: none;
   align-items: center;
   padding: 7px 0px;
   margin: 0px 10px;
