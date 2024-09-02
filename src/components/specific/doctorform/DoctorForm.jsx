@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import "./style.css";
-import { db, auth, storage } from "../../../Firebase"; // Make sure 'storage' is imported from your Firebase configuration
+import { db, auth, storage } from "../../../Firebase";
+import toast from "react-hot-toast";
 
 const DoctorForm = () => {
   const [doctorData, setDoctorData] = useState({
@@ -62,7 +63,7 @@ const DoctorForm = () => {
           imageUrl, // Save the image URL in Firestore
         }
       );
-
+      toast.success("Doctor Profile added successfully!");
       console.log("Doctor added with ID: ", docRef.id);
 
       // Optionally, reset the form
@@ -78,6 +79,7 @@ const DoctorForm = () => {
       setPreviewUrl(""); // Reset the image preview
     } catch (e) {
       console.error("Error adding document: ", e);
+      toast.error("Error adding doctor.");
     }
   };
 

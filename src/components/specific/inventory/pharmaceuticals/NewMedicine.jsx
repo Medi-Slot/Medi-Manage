@@ -4,6 +4,22 @@ import { getFirestore, doc, setDoc, collection } from "firebase/firestore";
 import { auth } from "../../../../Firebase"; // Ensure auth is correctly imported
 import toast from "react-hot-toast";
 
+// List of categories
+const categories = [
+  "Pharmaceuticals",
+  "Medical Equipment",
+  "Consumables",
+  "Laboratory Supplies",
+  "Surgical Supplies",
+  "Fluids and IV",
+  "Radiology and Imaging",
+  "Dental",
+  "PPE",
+  "Waste Management",
+  "Oxygen and Respiratory Supplies",
+  "Miscellaneous",
+];
+
 export default function NewMedicine() {
   // Initialize state for each input field
   const [productName, setProductName] = useState("");
@@ -12,7 +28,7 @@ export default function NewMedicine() {
   const [buyingPrice, setBuyingPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [thresholdValue, setThresholdValue] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(categories[0]); // Default to first category
   const [supplierName, setSupplierName] = useState("");
   const [supplierContact, setSupplierContact] = useState("");
   const [stockLocations, setStockLocations] = useState("");
@@ -77,7 +93,6 @@ export default function NewMedicine() {
       buyingPrice,
       quantity: parseInt(quantity, 10),
       thresholdValue: parseInt(thresholdValue, 10),
-      category, // Include category in the document if needed
       supplierName,
       supplierContact,
       stockLocations,
@@ -85,9 +100,9 @@ export default function NewMedicine() {
     };
 
     try {
-      // Reference to the Medicines collection under the user's UID
+      // Reference to the selected category's collection under the user's UID
       const medicineRef = doc(
-        collection(db, "Inventory", user.uid, "Medicines"),
+        collection(db, "Inventory", user.uid, category), // Use the selected category name
         productId // Use productId as the document ID
       );
 
@@ -104,7 +119,7 @@ export default function NewMedicine() {
       setBuyingPrice("");
       setQuantity("");
       setThresholdValue("");
-      setCategory("");
+      setCategory(categories[0]); // Reset to default category
       setSupplierName("");
       setSupplierContact("");
       setStockLocations("");
@@ -117,7 +132,10 @@ export default function NewMedicine() {
   return (
     <div className="new-medicine-layout">
       <h1>Add New Product</h1>
-      <form className="medicine-form-new-medicine-layout" onSubmit={handleSubmit}>
+      <form
+        className="medicine-form-new-medicine-layout"
+        onSubmit={handleSubmit}
+      >
         {/* Form fields */}
         <div className="form-group-new-medicine-layout">
           <label htmlFor="productName" className="label-new-medicine-layout">
@@ -213,15 +231,19 @@ export default function NewMedicine() {
           <label htmlFor="category" className="label-new-medicine-layout">
             Category
           </label>
-          <input
-            type="text"
+          <select
             id="category"
             name="category"
             className="input-new-medicine-layout"
-            placeholder="Enter Category"
             value={category}
             onChange={handleChange}
-          />
+          >
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="form-group-new-medicine-layout">
@@ -240,7 +262,10 @@ export default function NewMedicine() {
         </div>
 
         <div className="form-group-new-medicine-layout">
-          <label htmlFor="supplierContact" className="label-new-medicine-layout">
+          <label
+            htmlFor="supplierContact"
+            className="label-new-medicine-layout"
+          >
             Supplier Contact
           </label>
           <input
