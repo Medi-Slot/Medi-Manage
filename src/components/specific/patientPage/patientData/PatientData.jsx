@@ -11,9 +11,25 @@ function PatientData() {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const userId = auth.currentUser.uid;
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
+    // Check for current user and fetch patient data once the user is available
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserId(user.uid);
+      } else {
+        setError("User not authenticated. Please log in.");
+        setLoading(false);
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup the subscription on unmount
+  }, []);
+
+  useEffect(() => {
+    if (!userId) return;
+
     // Fetch patient data from Firestore
     const fetchPatients = async () => {
       try {
