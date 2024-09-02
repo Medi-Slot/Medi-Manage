@@ -1,11 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
 import "./newMedicine.css";
+import { getFirestore, doc, setDoc, collection } from "firebase/firestore";
+import { useSelector } from "react-redux";
+import { auth } from "../../../../Firebase"; // Ensure auth is correctly imported
+import toast from "react-hot-toast";
 
 export default function NewMedicine() {
+
+  const [productName, setProductName] = useState("");
+  const [productId, setProductId] = useState("");
+  const [batchNumber, setBatchNumber] = useState("");
+  const [buyingPrice, setBuyingPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [thresholdValue, setThresholdValue] = useState("");
+  const [supplierName, setSupplierName] = useState("");
+  const [supplierContact, setSupplierContact] = useState("");
+  const [stockLocations, setStockLocations] = useState("");
+  const db = getFirestore();
+
+  // Assuming you have the user stored in Redux or some state management
+  const user = useSelector((state) => state.auth.user);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validate if the user is authenticated and has a hospital ID
+    if (!user || !user.uid) {
+      toast.error("User not authenticated!");
+      return;
+    }
+
+    try {
+      // Define the medicine data
+      const newMedicine = {
+        productName,
+        productId,
+        batchNumber,
+        buyingPrice,
+        quantity: parseInt(quantity, 10),
+        thresholdValue: parseInt(thresholdValue, 10),
+        supplierName,
+        supplierContact,
+        stockLocations,
+        createdAt: new Date().toISOString(),
+      };
+
+      // Add a new medicine under the Inventory collection associated with the hospital's UID
+      const medicineRef = doc(
+        collection(db, "Hospitals", user.uid, "Inventory"),
+        productId
+      );
+
+      const data=await setDoc(medicineRef, newMedicine);
+      console.log(data);
+      toast.success("Medicine added successfully!");
+      // Reset form fields
+      setProductName("");
+      setProductId("");
+      setBatchNumber("");
+      setBuyingPrice("");
+      setQuantity("");
+      setThresholdValue("");
+      setSupplierName("");
+      setSupplierContact("");
+      setStockLocations("");
+    } catch (err) {
+      toast.error("Failed to add medicine");
+      console.error("Error adding medicine: ", err);
+    }
+  };
   return (
     <div className="new-medicine-layout">
       <h1>Add New Product</h1>
-      <form className="medicine-form-new-medicine-layout">
+      <form className="medicine-form-new-medicine-layout" onSubmit={handleSubmit}>
         <div className="form-group-new-medicine-layout">
           <label htmlFor="productName" className="label-new-medicine-layout">
             Product Name
