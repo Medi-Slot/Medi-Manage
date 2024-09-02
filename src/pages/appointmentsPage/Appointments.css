@@ -1,3 +1,49 @@
 .appointment-page-container {
   padding: 2rem;
 }
+.appointment-page-dropdown-button {
+  display: flex;
+  width: 100%;
+  height: auto;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  justify-content: space-between;
+  border-radius: 0.5rem;
+  background-color: aliceblue;
+  border: 1px solid #ccc;
+}
+.appointment-page-container {
+  padding: 2rem;
+}
+
+.appointment-page-dropdown-button {
+  display: flex;
+  width: 100%;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  justify-content: space-between;
+  border-radius: 0.5rem;
+  background-color: aliceblue;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.appointment-page-dropdown-button.active {
+  background-color: #057dcd;
+  color: white;
+  border-color: #057dcd;
+}
+
+.appointment-page-dropdown-button p {
+  margin: 0;
+}
+
+.appointment-page-dropdown-button .active {
+  background-color: #057dcd;
+}
+.appointment-page-dropdown-content {
+  padding: 0 2rem;
+}
