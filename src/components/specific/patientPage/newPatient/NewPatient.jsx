@@ -58,6 +58,7 @@ export default function NewPatient() {
             placeholder="Enter name"
             value={formData.name}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -72,6 +73,7 @@ export default function NewPatient() {
             className="input-new-patient-layout"
             value={formData.dob}
             onChange={handleChange}
+            required
           />
         </div>
 
@@ -85,6 +87,7 @@ export default function NewPatient() {
             className="input-new-patient-layout"
             value={formData.gender}
             onChange={handleChange}
+            required
           >
             <option value="">Select gender</option>
             <option value="Male">Male</option>
@@ -105,6 +108,7 @@ export default function NewPatient() {
             placeholder="Enter weight"
             value={formData.weight}
             onChange={handleChange}
+            required
           />
         </div>
 
