@@ -1,4 +1,5 @@
 import React from 'react'
+import "../../specific/doctorprofile/style.css"
 
 const UpcomingAppointment = ({size}) => {
   return (
