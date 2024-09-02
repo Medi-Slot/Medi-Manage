@@ -3,33 +3,34 @@ import "./style.css";
 import hp from "../../../assets/images/hp.png";
 import { IoIosPeople } from "react-icons/io";
 import { HiOutlineLogout } from "react-icons/hi";
-import { LuPlusCircle } from "react-icons/lu";
 import { MdInsertChartOutlined } from "react-icons/md";
 import { BiFirstAid } from "react-icons/bi";
 import { TbReportAnalytics } from "react-icons/tb";
 import { PiGridFourFill } from "react-icons/pi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, NavLink } from "react-router-dom";
-import { auth, db } from "../../../Firebase";
 import { signOut } from "firebase/auth";
 import { logout } from "../../../redux/slices/authSlice";
 import toast from "react-hot-toast";
-import { doc, getDoc } from "firebase/firestore"; // Import Firestore functions
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../../../Firebase";
 
 const Navbar = () => {
   const [hospitalName, setHospitalName] = useState("");
   const [hospitalLocation, setHospitalLocation] = useState("");
+  const [loading, setLoading] = useState(true); // Add loading state
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Get user ID from Redux state
+  const userId = useSelector((state) => state.auth.user.id);
+
   useEffect(() => {
     const fetchHospitalDetails = async () => {
-      try {
-        // Fetch the user's ID from the auth state
-        const user = auth.currentUser;
-        if (user) {
+      if (userId) {
+        try {
           // Reference to the hospital document in Firestore
-          const hospitalDocRef = doc(db, "Hospitals", user.uid);
+          const hospitalDocRef = doc(db, "Hospitals", userId);
           const hospitalDocSnap = await getDoc(hospitalDocRef);
 
           if (hospitalDocSnap.exists()) {
@@ -39,15 +40,19 @@ const Navbar = () => {
           } else {
             console.log("No such document!");
           }
+        } catch (error) {
+          console.error("Error fetching hospital details:", error);
+          toast.error("Failed to fetch hospital details");
+        } finally {
+          setLoading(false); // Set loading to false after fetching
         }
-      } catch (error) {
-        console.error("Error fetching hospital details:", error);
-        toast.error("Failed to fetch hospital details");
+      } else {
+        setLoading(false); // Set loading to false if no userId
       }
     };
 
     fetchHospitalDetails();
-  }, []);
+  }, [userId]); // Add userId to dependency array
 
   const handleLogout = async () => {
     try {
@@ -114,10 +119,10 @@ const Navbar = () => {
         <img src={hp} alt="Hospital" className="sidebar-hospital-image" />
         <div className="sidebar-hospital-info">
           <div className="sidebar-hospital-name">
-            {hospitalName || "Hospital Name"}
+            {loading ? "Loading..." : (hospitalName || "Hospital Name")}
           </div>
           <div className="sidebar-hospital-location">
-            {hospitalLocation || "Location"}
+            {loading ? "" : (hospitalLocation || "Location")}
           </div>
         </div>
       </div>

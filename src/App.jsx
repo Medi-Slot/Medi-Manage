@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from "./pages/landingPage/LandingPage";
 import Inventory from "./pages/inventoryPage/Inventory";
 import Layout from "./layout/Layout";
@@ -14,14 +14,28 @@ import InventoryPage from "./pages/inventoryPage/InventoryPage";
 import Appointments from "./pages/appointmentsPage/Appointments";
 import InventoryOverview from "./pages/inventoryPage/InventoryOverview";
 import DoctorPage from "./pages/doctorPage/DoctorPage";
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from "./Firebase";
+import { setUser, logout } from "./redux/slices/authSlice";
 
 function App() {
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        store.dispatch(setUser(user));
+      } else {
+        store.dispatch(logout());
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <>
       <Provider store={store}>
         <Router>
           <Routes>
-            {/* Routes without Layout */}
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
@@ -32,11 +46,8 @@ function App() {
               <Route path="/patient" element={<PatientPage />} />
               <Route path="/inventory/medicine" element={<InventoryPage />} />
               <Route path="/appointments" element={<Appointments />} />
-              <Route path="/doctor" element = {<DoctorPage />} />
-              <Route
-                path="/inventory/overview"
-                element={<InventoryOverview />}
-              />
+              <Route path="/doctor" element={<DoctorPage />} />
+              <Route path="/inventory/overview" element={<InventoryOverview />} />
             </Route>
           </Routes>
           <Toaster />

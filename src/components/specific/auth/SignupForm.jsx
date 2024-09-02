@@ -24,34 +24,30 @@ const SignupForm = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      // Update the user's profile with the hospital name
-      await updateProfile(userCredential.user, { displayName: username });
-
-      // Create a Firestore document in the "Hospitals" collection with the user's UID as the doc ID
-      await setDoc(doc(db, "Hospitals", userCredential.user.uid), {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const { user } = userCredential;
+      await updateProfile(user, { displayName: username });
+      await setDoc(doc(db, "Hospitals", user.uid), {
         hospitalName: username,
-        location: location,
-        specialty: specialty,
-        email: email,
-        createdAt: new Date().toISOString(),
+        location,
+        specialty,
+        email,
+        createdAt: new Date().toISOString()
       });
-
-      dispatch(signupSuccess(userCredential.user));
+      dispatch(signupSuccess({
+        uid: user.uid,
+        displayName: user.displayName,
+        email: user.email
+      }));
       toast.success("User successfully created!");
       navigate("/dashboard");
-      console.log("User created");
     } catch (err) {
       setError(err.message);
       toast.error("Signup failed");
-      console.log(err);
     }
   };
+  
+  
 
   return (
     <div>
