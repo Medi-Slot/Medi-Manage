@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, Outlet } from "react-router-dom";
 import Navbar from "../components/common/navbar/Navbar";
 import Header from "../components/common/header/Header";
-import DoctorProfile from "../components/specific/doctorprofile/DoctorProfile";
+import HospitalProfile from "../components/specific/dashboard/hospitalprofile/HospitalProfile";
 import NewPatient from "../components/specific/patientPage/newPatient/NewPatient";
 import NewMedicine from "../components/specific/inventory/pharmaceuticals/NewMedicine";
 import SetSlot from "../components/specific/appointments/setSlot/SetSlot";
@@ -18,7 +18,7 @@ const Layout = () => {
   // Reset the activeComponent state when the route changes
   useEffect(() => {
     if (location.pathname === "/dashboard") {
-      setActiveComponent("doctorProfile");
+      setActiveComponent("hospitalProfile");
     } else {
       setActiveComponent(null);
     }
@@ -34,7 +34,7 @@ const Layout = () => {
   };
 
   const handleDoctorProfileClick = () => {
-    setActiveComponent("doctorProfile");
+    setActiveComponent("hospitalProfile");
   };
 
   const handleIconClick = () => {
@@ -77,7 +77,7 @@ const Layout = () => {
         }}
       >
         {/* Conditionally render the component based on the activeComponent state */}
-        {activeComponent === "doctorProfile" && <DoctorProfile />}
+        {activeComponent === "hospitalProfile" && <HospitalProfile />}
         {activeComponent === "setSlot" && <SetSlot />}
         {activeComponent === "newPatient" && <NewPatient />}
         {activeComponent === "newMedicine" && <NewMedicine />}
