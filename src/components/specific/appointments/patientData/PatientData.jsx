@@ -12,6 +12,7 @@ function PatientData() {
   const [patients, setPatients] = useState([]);
   const [selectedPatientId, setSelectedPatientId] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,7 +21,7 @@ function PatientData() {
       if (user) {
         setUserId(user.uid);
       } else {
-        setError("User not authenticated. Please log in.");
+        console.error("User not authenticated.");
         setLoading(false);
       }
     });
@@ -29,14 +30,12 @@ function PatientData() {
   }, []);
 
   useEffect(() => {
-    if (!userId) {
-      console.error("User is not authenticated");
-      return;
-    }
+    if (!userId) return;
 
     // Fetch patient data from Firestore
     const fetchPatients = async () => {
       try {
+        setLoading(true); // Set loading to true while fetching data
         const querySnapshot = await getDocs(
           collection(db, "Hospitals", userId, "Patients")
         );
@@ -47,6 +46,8 @@ function PatientData() {
         setPatients(patientsData);
       } catch (error) {
         console.error("Error fetching patients: ", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching data
       }
     };
 
@@ -55,15 +56,14 @@ function PatientData() {
 
   // Handle selecting a patient
   const handleSelect = (id) => {
-    const requiredUser = patients.reduce(()=>{
-      return patients.find((patient) => patient.id === id);
-    })
+    const requiredUser = patients.find((patient) => patient.id === id);
     setSelectedPatientId(id);
-    dispatch(setPatientData({
-      patId: requiredUser.id,
-      patName: requiredUser.name,
-    }));
-    console.log(requiredUser)
+    dispatch(
+      setPatientData({
+        patId: requiredUser.id,
+        patName: requiredUser.name,
+      })
+    );
     handleAppointmentClick(id);
     if (selectedPatientId === id) {
       setSelectedPatientId(null);
@@ -96,42 +96,65 @@ function PatientData() {
           onClick={handleIconClick}
         />
       </div>
-      {patients.length > 0 ? (
-        <table className="patient-data-table">
-          <thead className="patient-data-table-head">
-            <tr>
-              <th className="patient-data-head">Patient Name</th>
-              <th className="patient-data-head">Age</th>
-              <th className="patient-data-head">Weight</th>
-              <th className="patient-data-head">Gender</th>
-              <th className="patient-data-head">Select</th>
-            </tr>
-          </thead>
-          <tbody className="patient-data-table-body">
-            {patients.map((patient) => (
-              <tr key={patient.id}>
-                <td className="patient-data-values-names">{patient.name}</td>
-                <td className="patient-data-values">
-                  {calculateAge(patient.dob)}
-                </td>
-                <td className="patient-data-values">{patient.weight}</td>
-                <td className="patient-data-values">{patient.gender}</td>
-                <td>
-                  <div
-                    onClick={() => handleSelect(patient.id)}
-                    className={`patient-data-select ${
-                      selectedPatientId === patient.id ? "selected" : ""
-                    }`}
-                  >
-                    {selectedPatientId === patient.id ? "•" : "○"}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
+      {loading ? (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "50vh",
+          }}
+        >
+          <div className="three-body">
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
+          </div>
+        </div>
       ) : (
-        <p>No patients found.</p>
+        <>
+          {patients.length > 0 ? (
+            <table className="patient-data-table">
+              <thead className="patient-data-table-head">
+                <tr>
+                  <th className="patient-data-head">Patient Name</th>
+                  <th className="patient-data-head">Age</th>
+                  <th className="patient-data-head">Weight</th>
+                  <th className="patient-data-head">Gender</th>
+                  <th className="patient-data-head">Select</th>
+                </tr>
+              </thead>
+              <tbody className="patient-data-table-body">
+                {patients.map((patient) => (
+                  <tr key={patient.id}>
+                    <td className="patient-data-values-names">
+                      {patient.name}
+                    </td>
+                    <td className="patient-data-values">
+                      {calculateAge(patient.dob)}
+                    </td>
+                    <td className="patient-data-values">{patient.weight}</td>
+                    <td className="patient-data-values">{patient.gender}</td>
+                    <td>
+                      <div
+                        onClick={() => handleSelect(patient.id)}
+                        className={`patient-data-select ${
+                          selectedPatientId === patient.id ? "selected" : ""
+                        }`}
+                      >
+                        {selectedPatientId === patient.id ? "•" : "○"}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>No patients found.</p>
+          )}
+        </>
       )}
     </div>
   );
