@@ -10,8 +10,8 @@ import UpdateProduct from "../components/specific/inventory/updateProduct/update
 import DoctorForm from "../components/specific/doctorform/DoctorForm";
 
 const Layout = () => {
-  // Single state variable to track which component is active
   const [activeComponent, setActiveComponent] = useState(null);
+  const [selectedPatientId, setSelectedPatientId] = useState(null);
 
   const location = useLocation();
 
@@ -45,8 +45,16 @@ const Layout = () => {
     setActiveComponent("editInventory");
   };
 
-  const handleAppointmentClick = () => {
-    setActiveComponent((prev) => (prev === "setSlot" ? null : "setSlot"));
+  const handleAppointmentClick = (patientId) => {
+    if (selectedPatientId === patientId) {
+      // If the same patient is selected again, close the component
+      setActiveComponent(null);
+      setSelectedPatientId(null);
+    } else {
+      // Otherwise, open the component for the new patient
+      setActiveComponent("setSlot");
+      setSelectedPatientId(patientId);
+    }
   };
 
   return (
