@@ -16,22 +16,23 @@ import { BsScissors } from "react-icons/bs";
 import NewMedicine from '../../components/specific/inventory/pharmaceuticals/NewMedicine';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../redux/slices/titleSlice';
+import { NavLink } from 'react-router-dom';
 
 
 
 const inventoryItems = [
-    { name: 'Pharmaceuticals', icon: <BsCapsulePill /> },
-    { name: 'Medical Equipment', icon: <FaBedPulse /> },
-    { name: 'Consumables', icon: <RiSurgicalMaskLine /> },
-    { name: 'Laboratory Supplies', icon: <RiMicroscopeLine />    },
-    { name: 'Surgical Supplies', icon: <BsScissors /> },
-    { name: 'Fluids and IV', icon: <MdOutlineBloodtype />    },
-    { name: 'Radiology and Imaging', icon: <LiaXRaySolid />    },
-    { name: 'Dental', icon: <TbDental /> },
-    { name: 'PPE', icon: <FaHeadSideMask /> },
-    { name: 'Waste Management', icon: <RiDeleteBinLine /> },
-    { name: 'Oxygen and Respiratory Supplies', icon: <TbCylinderPlus />},
-    { name: 'Miscellaneous', icon: <CgNotes />    }
+    { name: 'Pharmaceuticals', icon: <BsCapsulePill />,path: "/inventory/medicine" },
+    { name: 'Medical Equipment', icon: <FaBedPulse />,path: "/inventory/med" },
+    { name: 'Consumables', icon: <RiSurgicalMaskLine />,path: "/inventory/me" },
+    { name: 'Laboratory Supplies', icon: <RiMicroscopeLine /> ,path: "/inventory/medicine54"   },
+    { name: 'Surgical Supplies', icon: <BsScissors /> ,path: "/inventory/medicinedds"},
+    { name: 'Fluids and IV', icon: <MdOutlineBloodtype /> ,path: "/inventory/medicinesc"   },
+    { name: 'Radiology and Imaging', icon: <LiaXRaySolid />  ,path: "/inventory/medicine12"  },
+    { name: 'Dental', icon: <TbDental />,path: "/inventory/medicine" },
+    { name: 'PPE', icon: <FaHeadSideMask /> ,path: "/inventory/medi"},
+    { name: 'Waste Management', icon: <RiDeleteBinLine /> ,path: "/inventory/medic"},
+    { name: 'Oxygen and Respiratory Supplies', icon: <TbCylinderPlus />,path: "/inventory/medici"},
+    { name: 'Miscellaneous', icon: <CgNotes /> ,path: "/inventory/medicin"   }
   ];
 
 const Inventory = () => {
@@ -45,7 +46,8 @@ const Inventory = () => {
   return (
     <div className="inventory-page-container">
       {inventoryItems.map((item, index) => (
-        <InventoryItem key={index} name={item.name} icon={item.icon} />
+        <NavLink key={index} to={item.path}>
+        <InventoryItem key={index} name={item.name} icon={item.icon} /></NavLink>
       ))}
     </div>
    
