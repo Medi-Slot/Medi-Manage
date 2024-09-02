@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./Auth.css";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../../Firebase.js";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -9,13 +10,16 @@ import { signupSuccess } from "../../../redux/slices/authSlice.js";
 
 const SignupForm = () => {
   const [username, setUsername] = useState("");
-  const [location,setLocation] = useState("");
-  const [specialty , setSpecialty] = useState("");
+  const [location, setLocation] = useState("");
+  const [specialty, setSpecialty] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // Initialize Firestore
+  const db = getFirestore();
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -25,16 +29,30 @@ const SignupForm = () => {
         email,
         password
       );
+
+      // Update the user's profile with the hospital name
       await updateProfile(userCredential.user, { displayName: username });
+
+      // Create a Firestore document in the "Hospitals" collection with the user's UID as the doc ID
+      await setDoc(doc(db, "Hospitals", userCredential.user.uid), {
+        hospitalName: username,
+        location: location,
+        specialty: specialty,
+        email: email,
+        createdAt: new Date().toISOString(),
+      });
+
       dispatch(signupSuccess(userCredential.user));
-      toast.success("User Successfully created!");
+      toast.success("User successfully created!");
       navigate("/dashboard");
-      console.log("user created");
+      console.log("User created");
     } catch (err) {
       setError(err.message);
       toast.error("Signup failed");
+      console.log(err);
     }
   };
+
   return (
     <div>
       <form onSubmit={handleSignup}>
