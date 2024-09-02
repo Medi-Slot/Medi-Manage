@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import StatCard from "../../components/specific/dashboard/statcard/StatCard";
 import patient from "../../assets/images/newpatient.png";
 import bag from "../../assets/images/bag.png";
 import "./style.css"
 import PatientVisitChart from "../../components/specific/dashboard/patientvisitchart/PatientVisitChart";
 import PatientData from "../../components/specific/dashboard/patientdata/PatientData";
+import { useDispatch } from "react-redux";
+import { setTitle } from "../../redux/slices/titleSlice";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setTitle("Dashboard")); 
+  }, [dispatch]);
+
+
   return (
     <div className="dashboard-main-container">
       <div className="dashboard-sub-container">

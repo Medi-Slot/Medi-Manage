@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Inventory.css'; // Import your styles
 import { useOutletContext } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setTitle } from '../../redux/slices/titleSlice';
 
 const InventoryPage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setTitle("Inventory")); //use the title u need
+  }, [dispatch]);
+
+
   // Sample inventory data
   const { handleNewMedicineClick } = useOutletContext();
   const [products, setProducts] = useState([
