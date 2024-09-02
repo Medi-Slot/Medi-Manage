@@ -6,6 +6,7 @@ import { db, auth } from "../../../Firebase";
 
 const DoctorGrid = () => {
   const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
   const { handleNewDoctorClick, handleDoctorProfileClick } = useOutletContext();
   const [activeDoctorId, setActiveDoctorId] = useState(null);
 
@@ -24,6 +25,8 @@ const DoctorGrid = () => {
         setDoctors(doctorList);
       } catch (error) {
         console.error("Error fetching doctors: ", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching data
       }
     };
 
@@ -40,6 +43,50 @@ const DoctorGrid = () => {
     setActiveDoctorId(doctorId); // Set the active card ID
     handleDoctorProfileClick(doctorId);
   };
+
+  if (loading) {
+    return (
+      <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "80vh",
+          }}
+        >
+          <div className="boxes">
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="doctor-grid">
       <div className="doctor-card add-doctor" onClick={handleNewDoctorClick}>

@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import './Inventory.css'; // Import your styles
-import { useOutletContext, useParams, useNavigate } from 'react-router-dom'; // Add useNavigate
-import { useDispatch } from 'react-redux';
-import { setTitle } from '../../redux/slices/titleSlice';
-import { getFirestore, collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
-import { auth } from '../../Firebase'; // Ensure auth is correctly imported
-import * as XLSX from 'xlsx';
+import React, { useEffect, useState } from "react";
+import "./Inventory.css"; // Import your styles
+import { useOutletContext, useParams, useNavigate } from "react-router-dom"; // Add useNavigate
+import { useDispatch } from "react-redux";
+import { setTitle } from "../../redux/slices/titleSlice";
+import {
+  getFirestore,
+  collection,
+  onSnapshot,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import { auth } from "../../Firebase"; // Ensure auth is correctly imported
+import * as XLSX from "xlsx";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 
 const InventoryPage = () => {
@@ -21,7 +27,10 @@ const InventoryPage = () => {
   const productsPerPage = 10;
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   useEffect(() => {
     dispatch(setTitle("Inventory"));
@@ -39,7 +48,7 @@ const InventoryPage = () => {
     const unsubscribe = onSnapshot(
       collection(db, "Inventory", user.uid, category), // Use category from route
       (snapshot) => {
-        const fetchedProducts = snapshot.docs.map(doc => ({
+        const fetchedProducts = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
@@ -99,17 +108,53 @@ const InventoryPage = () => {
     navigate(`/inventory/${category}/${productId}`);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div>
+        <div>
+          <div className="boxes">
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="inventory-container">
       <div className="inventory-sub-container">
-        <h1 className='inventory-medicine-header'>{category}</h1>
+        <h1 className="inventory-medicine-header">{category}</h1>
         <div className="inventory-actions">
-          <button className="inventory-button" onClick={handleNewMedicineClick}>Add Product</button>
+          <button className="inventory-button" onClick={handleNewMedicineClick}>
+            Add Product
+          </button>
           <button className="inventory-button">Filters</button>
-          <button className="inventory-button" onClick={downloadExcel}>Download all</button>
+          <button className="inventory-button" onClick={downloadExcel}>
+            Download all
+          </button>
         </div>
       </div>
       {products.length === 0 ? (
@@ -135,9 +180,17 @@ const InventoryPage = () => {
                   <td>₹{product.buyingPrice}</td>
                   <td>{product.quantity} Packets</td>
                   <td>{product.thresholdValue} Packets</td>
-                  <td>{product.expiryDate || 'N/A'}</td>
-                  <td className={`inventory-availability ${product.availability ? product.availability.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}>
-                    {product.availability || 'Unknown'}
+                  <td>{product.expiryDate || "N/A"}</td>
+                  <td
+                    className={`inventory-availability ${
+                      product.availability
+                        ? product.availability
+                            .replace(/\s+/g, "-")
+                            .toLowerCase()
+                        : "unknown"
+                    }`}
+                  >
+                    {product.availability || "Unknown"}
                   </td>
                   <td>
                     <button
@@ -162,9 +215,21 @@ const InventoryPage = () => {
             </tbody>
           </table>
           <div className="inventory-pagination">
-            <button onClick={handlePrevPage} disabled={currentPage === 1}>Previous</button>
-            <span>Page {currentPage} of {Math.ceil(products.length / productsPerPage)}</span>
-            <button onClick={handleNextPage} disabled={currentPage === Math.ceil(products.length / productsPerPage)}>Next</button>
+            <button onClick={handlePrevPage} disabled={currentPage === 1}>
+              Previous
+            </button>
+            <span>
+              Page {currentPage} of{" "}
+              {Math.ceil(products.length / productsPerPage)}
+            </span>
+            <button
+              onClick={handleNextPage}
+              disabled={
+                currentPage === Math.ceil(products.length / productsPerPage)
+              }
+            >
+              Next
+            </button>
           </div>
         </>
       )}

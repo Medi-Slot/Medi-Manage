@@ -32,7 +32,46 @@ const DoctorProfile = ({ doctorId }) => {
   }, [doctorId]);
 
   if (!doctor) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "80vh",
+          }}
+        >
+          <div className="boxes">
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+            <div className="box">
+              <div />
+              <div />
+              <div />
+              <div />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

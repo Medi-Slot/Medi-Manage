@@ -1,56 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #fff;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .header-title {
-    font-size: 24px;
-    font-weight: 600;
-    margin: 0;
-  }
-  
-  .header-search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 300px;
-    margin-top: 10px;
-  }
-  
-  .header-search-input {
-    width: 100%;
-    padding: 10px 40px 10px 15px; /* Space for the button */
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    outline: none;
-  }
-  
-  .header-search-button {
-    position: absolute;
-    right: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .header-search-icon {
-    color: #888;
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  margin: 1.5rem 1rem;
+}
+
+.header-search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 300px;
+  margin-top: 10px;
+}
+
+.header-search-input {
+  width: 100%;
+  padding: 10px 40px 10px 15px; /* Space for the button */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.header-search-button {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-search-icon {
+  color: #888;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
