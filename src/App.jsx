@@ -44,7 +44,7 @@ function App() {
               <Route path="/inventory" element={<Inventory />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/patient" element={<PatientPage />} />
-              <Route path="/inventory/medicine" element={<InventoryPage />} />
+              <Route path="/inventory/:category" element={<InventoryPage />} />
               <Route path="/appointments" element={<Appointments />} />
               <Route path="/doctor" element={<DoctorPage />} />
               <Route path="/inventory/overview" element={<InventoryOverview />} />
