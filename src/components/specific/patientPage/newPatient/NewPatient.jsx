@@ -14,7 +14,7 @@ export default function NewPatient() {
     weight: "",
   });
 
-  const userId= auth.currentUser.uid;
+  const userId = auth.currentUser.uid;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -25,7 +25,7 @@ export default function NewPatient() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const patientRef = collection(db, "Hospitals", userId, "Patients");
       await addDoc(patientRef, formData);
@@ -87,9 +87,9 @@ export default function NewPatient() {
             onChange={handleChange}
           >
             <option value="">Select gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
           </select>
         </div>
 

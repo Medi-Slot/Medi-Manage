@@ -1,8 +1,8 @@
-import React from 'react';
-import './style.css';
-import hp from '../../../assets/images/hp.png'
-import PatientSatisfaction from '../patientSatisfaction/PatientSatisfaction';
-import UpcomingAppointment from '../../common/upcomingAppointment/UpcomingAppointment';
+import React from "react";
+import "./style.css";
+import hp from "../../../assets/images/hp.png";
+import PatientSatisfaction from "../patientSatisfaction/PatientSatisfaction";
+import UpcomingAppointment from "../../common/upcomingAppointment/UpcomingAppointment";
 
 const DoctorProfile = () => {
   return (
@@ -28,7 +28,7 @@ const DoctorProfile = () => {
       </div>
       <hr className="doctor-profile-divider" />
 
-      <UpcomingAppointment size="1rem"/>
+      <UpcomingAppointment size="1rem" />
     </div>
   );
 };
