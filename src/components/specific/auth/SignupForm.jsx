@@ -9,6 +9,8 @@ import { signupSuccess } from "../../../redux/slices/authSlice.js";
 
 const SignupForm = () => {
   const [username, setUsername] = useState("");
+  const [location,setLocation] = useState("");
+  const [specialty , setSpecialty] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -37,12 +39,30 @@ const SignupForm = () => {
     <div>
       <form onSubmit={handleSignup}>
         <div className="form-control">
-          <label>User name:</label>
+          <label>Hospital name:</label>
           <input
             type="text"
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div className="form-control">
+          <label>Location:</label>
+          <input
+            type="text"
+            name="location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+        </div>
+        <div className="form-control">
+          <label>Specialty: (E.g. Cardiology)</label>
+          <input
+            type="text"
+            name="Specialty"
+            value={specialty}
+            onChange={(e) => setSpecialty(e.target.value)}
           />
         </div>
         <div className="form-control">
