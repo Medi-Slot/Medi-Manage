@@ -15,7 +15,9 @@
   font-size: 24px;
   font-weight: 600;
 }
-
+.inventory-item-link{
+  text-decoration: none;
+}
 .inventory-overview-edit-btn {
   display: flex;
   align-items: center;
