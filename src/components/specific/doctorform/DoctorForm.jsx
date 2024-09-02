@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import "./style.css";
-import { db, auth } from "../../../Firebase";
+import { db, auth, storage } from "../../../Firebase"; // Make sure 'storage' is imported from your Firebase configuration
+
 const DoctorForm = () => {
   const [doctorData, setDoctorData] = useState({
     doctorName: "",
@@ -9,7 +11,11 @@ const DoctorForm = () => {
     qualification: "",
     experience: "",
     phoneNumber: "",
+    imageUrl: "", // This will store the URL of the uploaded image
   });
+
+  const [imageFile, setImageFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(""); // State to hold the preview URL
 
   const handleChange = (e) => {
     setDoctorData({
@@ -18,18 +24,47 @@ const DoctorForm = () => {
     });
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file); // Store the selected image file
+
+    if (file) {
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        setPreviewUrl(fileReader.result); // Set the preview URL to display the image
+      };
+      fileReader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = auth.currentUser;
+
     try {
-      // Add the doctor data under the Hospital collection -> specific docID -> Doctors subcollection
+      let imageUrl = "";
+
+      // Upload image to Firebase Storage if an image was selected
+      if (imageFile) {
+        const imageRef = ref(
+          storage,
+          `doctorImages/${user.uid}/${imageFile.name}`
+        );
+        await uploadBytes(imageRef, imageFile);
+        imageUrl = await getDownloadURL(imageRef);
+      }
+
+      // Add the doctor data along with the imageUrl to Firestore
       const docRef = await addDoc(
         collection(db, "Hospitals", user.uid, "Doctors"),
         {
           ...doctorData,
+          imageUrl, // Save the image URL in Firestore
         }
       );
+
       console.log("Doctor added with ID: ", docRef.id);
+
       // Optionally, reset the form
       setDoctorData({
         doctorName: "",
@@ -37,7 +72,10 @@ const DoctorForm = () => {
         qualification: "",
         experience: "",
         phoneNumber: "",
+        imageUrl: "",
       });
+      setImageFile(null); // Reset the image file input
+      setPreviewUrl(""); // Reset the image preview
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -46,8 +84,15 @@ const DoctorForm = () => {
   return (
     <div className="doctor-form-container">
       <div className="doctor-form-header">
-        <div className="doctor-form-doctor-image-input">
-          <input type="file" accept="image/*" />
+        <div
+          className="doctor-form-doctor-image-input"
+          style={{
+            backgroundImage: previewUrl
+              ? `url(${previewUrl})`
+              : `url("https://images.unsplash.com/photo-1582750433449-648ed127bb54?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")`,
+          }}
+        >
+          <input type="file" accept="image/*" onChange={handleImageChange} />
         </div>
         <div className="doctor-form-form-title">
           <h2>Register</h2>
