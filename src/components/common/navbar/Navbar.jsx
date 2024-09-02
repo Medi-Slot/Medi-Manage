@@ -83,8 +83,8 @@ const Navbar = () => {
           <span>Logout</span>
         </div>
       </div>
-      <div className="sidebar-Nav-hospital">
-        <img src={hp} alt="Hospital" className="sidebar-hospital-image" />
+      <div className="sidebar-Nav-hospital" onClick={() => navigate('/dashboard')}>
+        <img src={hp} alt="Hospital" className="sidebar-hospital-image"  />
         <div className="sidebar-hospital-info">
           <div className="sidebar-hospital-name">Harsha Hospital</div>
           <div className="sidebar-hospital-location">Bhimavaram</div>

@@ -19,6 +19,7 @@ body {
   padding: 20px;
   border-radius: 10px;
   transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
 .doctor-card:hover {

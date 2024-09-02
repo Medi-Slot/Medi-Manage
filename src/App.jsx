@@ -13,6 +13,7 @@ import PatientPage from "./pages/patientPage/PatientPage";
 import InventoryPage from "./pages/inventoryPage/InventoryPage";
 import Appointments from "./pages/appointmentsPage/Appointments";
 import InventoryOverview from "./pages/inventoryPage/InventoryOverview";
+import DoctorPage from "./pages/doctorPage/DoctorPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route path="/patient" element={<PatientPage />} />
               <Route path="/inventory/medicine" element={<InventoryPage />} />
               <Route path="/appointments" element={<Appointments />} />
+              <Route path="/doctor" element = {<DoctorPage />} />
               <Route
                 path="/inventory/overview"
                 element={<InventoryOverview />}
