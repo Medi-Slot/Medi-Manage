@@ -6,7 +6,7 @@ import { db, auth } from "../../../Firebase";
 
 const DoctorGrid = () => {
   const [doctors, setDoctors] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
   const { handleNewDoctorClick, handleDoctorProfileClick } = useOutletContext();
   const [activeDoctorId, setActiveDoctorId] = useState(null);
 
@@ -26,7 +26,7 @@ const DoctorGrid = () => {
       } catch (error) {
         console.error("Error fetching doctors: ", error);
       } finally {
-        setLoading(false); // Set loading to false after fetching data
+        setLoading(false);
       }
     };
 

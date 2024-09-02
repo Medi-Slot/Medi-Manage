@@ -98,6 +98,12 @@
 .no-inventory-items {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.no-inventory-items h2 {
+  color: #393e46a8;
+  margin-top: 0.5rem;
 }
 .inventory-page-container {
   gap: 30px;

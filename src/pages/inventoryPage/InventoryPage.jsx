@@ -3,6 +3,7 @@ import "./Inventory.css"; // Import your styles
 import { useOutletContext, useParams, useNavigate } from "react-router-dom"; // Add useNavigate
 import { useDispatch } from "react-redux";
 import { setTitle } from "../../redux/slices/titleSlice";
+import Empty from "../../assets/images/Empty-rafiki.png";
 import {
   getFirestore,
   collection,
@@ -111,7 +112,15 @@ const InventoryPage = () => {
   if (loading)
     return (
       <div>
-        <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "80vh",
+          }}
+        >
           <div className="boxes">
             <div className="box">
               <div />
@@ -158,7 +167,14 @@ const InventoryPage = () => {
         </div>
       </div>
       {products.length === 0 ? (
-        <div className="no-inventory-items">No Inventory Items</div>
+        <div className="no-inventory-items">
+          <img
+            src={Empty}
+            alt="No Inventory Items"
+            style={{ width: "400px" }}
+          />
+          <h2>No Inventory Items</h2>
+        </div>
       ) : (
         <>
           <table className="inventory-table">
