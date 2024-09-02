@@ -2,23 +2,44 @@ import React, { useState, useEffect } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { useOutletContext } from "react-router-dom";
 import { auth, db } from "../../../../Firebase"; // Adjust path as necessary
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import "./style.css";
 
 function PatientData() {
   const { handleIconClick, handleAppointmentClick } = useOutletContext();
   const [patients, setPatients] = useState([]);
   const [selectedPatientId, setSelectedPatientId] = useState(null);
-  const userId = auth.currentUser.uid;
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
+    // Check for current user and fetch patient data once the user is available
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserId(user.uid);
+      } else {
+        setError("User not authenticated. Please log in.");
+        setLoading(false);
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup the subscription on unmount
+  }, []);
+
+  useEffect(() => {
+    if (!userId) {
+      console.error("User is not authenticated");
+      return;
+    }
+
     // Fetch patient data from Firestore
     const fetchPatients = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "Hospitals", userId, "Patients"));
-        const patientsData = querySnapshot.docs.map(doc => ({
+        const querySnapshot = await getDocs(
+          collection(db, "Hospitals", userId, "Patients")
+        );
+        const patientsData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
         setPatients(patientsData);
       } catch (error) {
@@ -32,11 +53,11 @@ function PatientData() {
   // Handle selecting a patient
   const handleSelect = (id) => {
     setSelectedPatientId(id);
-    handleAppointmentClick(id); 
-    if(selectedPatientId===id){
-      setSelectedPatientId(null)
-    }// Pass patient ID to handleAppointmentClick
-  }
+    handleAppointmentClick(id);
+    if (selectedPatientId === id) {
+      setSelectedPatientId(null);
+    }
+  };
 
   // Calculate age from date of birth
   const calculateAge = (dob) => {
@@ -45,6 +66,10 @@ function PatientData() {
     const ageDate = new Date(ageDifMs);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   };
+
+  if (!userId) {
+    return <p>User not authenticated. Please log in to see patient data.</p>;
+  }
 
   return (
     <div className="patient-data-container">
@@ -68,7 +93,6 @@ function PatientData() {
               <th className="patient-data-head">Select</th>
             </tr>
           </thead>
-
           <tbody className="patient-data-table-body">
             {patients.map((patient) => (
               <tr key={patient.id}>
