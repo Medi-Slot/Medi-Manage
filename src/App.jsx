@@ -47,7 +47,7 @@ function App() {
               <Route path="/inventory/:category" element={<InventoryPage />} />
               <Route path="/appointments" element={<Appointments />} />
               <Route path="/doctor" element={<DoctorPage />} />
-              <Route path="/inventory/overview" element={<InventoryOverview />} />
+              <Route path="/inventory/:category/:productId" element={<InventoryOverview />} />
             </Route>
           </Routes>
           <Toaster />
