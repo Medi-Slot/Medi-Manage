@@ -48,7 +48,7 @@ const Appointments = () => {
           upcomingAppointmentOpen ? "active" : ""
         }`}
       >
-        <p>Upcoming Appointment</p>
+        <p>Appointments</p>
         {!upcomingAppointmentOpen ? <TiArrowSortedDown /> : <TiArrowSortedUp />}
       </button>
       {upcomingAppointmentOpen && (
