@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .doctor-grid {
@@ -32,6 +32,8 @@ body {
   background-color: #e0e7ff;
   border-radius: 10px;
   margin-bottom: 10px;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .doctor-grid-plus-icon {
@@ -50,4 +52,3 @@ body {
   background-color: #e0e7ff;
   justify-content: center;
 }
-
