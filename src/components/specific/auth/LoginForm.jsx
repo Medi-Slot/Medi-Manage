@@ -20,23 +20,28 @@ const LoginForm = () => {
     dispatch(loginStart());
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      dispatch(loginSuccess(userCredential.user));
-      console.log("logged in");
-      toast.success("User Successfully Logged in");
+      const { user } = userCredential;
+      dispatch(loginSuccess({
+        uid: user.uid,
+        displayName: user.displayName,
+        email: user.email
+      }));
+      toast.success("User successfully logged in");
       navigate("/dashboard");
     } catch (err) {
       dispatch(loginFailure(err.message));
       setError(err.message);
-      toast.error("Failed to Login");
+      toast.error("Failed to log in");
     }
   };
+  
 
   return (
     <div className="LoginForm">
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleLogin}>
         <div className="form-control">
-          <label>Email Address :</label>
+          <label>Email Address:</label>
           <input
             type="email"
             name="email"
