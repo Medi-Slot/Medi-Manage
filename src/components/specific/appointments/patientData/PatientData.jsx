@@ -4,12 +4,15 @@ import { useOutletContext } from "react-router-dom";
 import { auth, db } from "../../../../Firebase"; // Adjust path as necessary
 import { collection, getDocs } from "firebase/firestore";
 import "./style.css";
+import { useDispatch } from "react-redux";
+import { setPatientData } from "../../../../redux/slices/appointmentSlice";
 
 function PatientData() {
   const { handleIconClick, handleAppointmentClick } = useOutletContext();
   const [patients, setPatients] = useState([]);
   const [selectedPatientId, setSelectedPatientId] = useState(null);
   const [userId, setUserId] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // Check for current user and fetch patient data once the user is available
@@ -52,7 +55,15 @@ function PatientData() {
 
   // Handle selecting a patient
   const handleSelect = (id) => {
+    const requiredUser = patients.reduce(()=>{
+      return patients.find((patient) => patient.id === id);
+    })
     setSelectedPatientId(id);
+    dispatch(setPatientData({
+      patId: requiredUser.id,
+      patName: requiredUser.name,
+    }));
+    console.log(requiredUser)
     handleAppointmentClick(id);
     if (selectedPatientId === id) {
       setSelectedPatientId(null);

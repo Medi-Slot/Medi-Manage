@@ -15,12 +15,27 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [userId, setUserId]=useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // Initialize Firestore
   const db = getFirestore();
 
+  useEffect(() => {
+    // Check for current user and fetch patient data once the user is available
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserId(user.uid);
+      } else {
+        setError("User not authenticated. Please log in.");
+        setLoading(false);
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup the subscription on unmount
+  }, []);
+  
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
