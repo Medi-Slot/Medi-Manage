@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./style.css";
 import { useOutletContext } from "react-router-dom";
 import { getDocs, collection } from "firebase/firestore";
-import { db, auth } from "../../../Firebase"; // Adjust the path to your Firebase config
+import { db, auth } from "../../../Firebase";
 
 const DoctorGrid = () => {
   const [doctors, setDoctors] = useState([]);
   const { handleNewDoctorClick, handleDoctorProfileClick } = useOutletContext();
+  const [activeDoctorId, setActiveDoctorId] = useState(null);
 
   useEffect(() => {
     const fetchDoctors = async (userId) => {
@@ -32,10 +33,13 @@ const DoctorGrid = () => {
       }
     });
 
-    // Cleanup subscription on unmount
     return () => unsubscribe();
   }, []);
 
+  const handleCardClick = (doctorId) => {
+    setActiveDoctorId(doctorId); // Set the active card ID
+    handleDoctorProfileClick(doctorId);
+  };
   return (
     <div className="doctor-grid">
       <div className="doctor-card add-doctor" onClick={handleNewDoctorClick}>
@@ -44,9 +48,11 @@ const DoctorGrid = () => {
       </div>
       {doctors.map((doctor) => (
         <div
-          className="doctor-card"
+          className={`doctor-card doctor-card-${
+            activeDoctorId === doctor.id ? "active" : ""
+          }`} // Add active class conditionally
           key={doctor.id}
-          onClick={() => handleDoctorProfileClick(doctor.id)}
+          onClick={() => handleCardClick(doctor.id)}
         >
           <div
             className="doctor-image"
@@ -58,6 +64,7 @@ const DoctorGrid = () => {
             }}
           ></div>
           <div className="doctor-name">{doctor.doctorName}</div>
+          <div className="doctor-qualification">{doctor.qualification} </div>
         </div>
       ))}
     </div>
