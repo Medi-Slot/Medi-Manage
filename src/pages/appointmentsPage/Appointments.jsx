@@ -23,7 +23,7 @@ const Appointments = () => {
 
   useEffect(() => {
     dispatch(setTitle("Appointments"));
-    console.log(appointmentDetails); // Log the appointment details
+    // console.log(appointmentDetails); // Log the appointment details
 
   }, [dispatch,appointmentDetails]);
 
