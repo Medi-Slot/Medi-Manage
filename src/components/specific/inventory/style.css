@@ -1,17 +1,23 @@
 .inventory-item-container {
-    border: 1px solid #ccc;
-    padding: 1rem;
-    text-align: center;
-    border-radius: 1rem;
-    background-color: #f9f9f9;
-  }
-  
-  .inventory-item-container .inventory-item-icon {
-    font-size: 5vw;
-    margin-bottom: 1rem;
-  }
-  
-  .inventory-item-container .inventory-item-name {
-    font-size: 18px;
-    font-weight: bold;
-  }
+  border: 1px solid #ccc;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 1rem;
+  transition: all 0.5s;
+}
+
+.inventory-item-container .inventory-item-icon {
+  font-size: 5vw;
+  margin-bottom: 0;
+  color: #393e46;
+}
+
+.inventory-item-container .inventory-item-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #393e4684;
+}
+.inventory-item-container:hover {
+  transform: scale(1.05);
+  border: 1px solid black;
+}

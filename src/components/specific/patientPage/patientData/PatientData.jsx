@@ -104,7 +104,24 @@ function PatientData() {
         <tbody className="patient-data-table-body">
           {loading ? (
             <tr>
-              <td colSpan="5">Loading...</td> {/* Span across all columns */}
+              <td colSpan="5">
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                    height: "50vh",
+                  }}
+                >
+                  <div class="three-body">
+                    <div class="three-body__dot"></div>
+                    <div class="three-body__dot"></div>
+                    <div class="three-body__dot"></div>
+                  </div>
+                </div>
+              </td>{" "}
+              {/* Span across all columns */}
             </tr>
           ) : error ? (
             <tr>
