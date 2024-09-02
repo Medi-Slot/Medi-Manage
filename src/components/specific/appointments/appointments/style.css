@@ -1,0 +1,19 @@
+.appointments-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .appointments-header h2 {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .appointment-date {
+    color: #3371EB;
+    font-size: 14px;
+    margin-top: 10px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  

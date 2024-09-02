@@ -10,9 +10,6 @@ import Dashboard from "./pages/dashboardPage/Dashboard";
 import store from "./redux/store";
 import { Provider } from 'react-redux';
 import Appointments from "./pages/appointmentsPage/AppointmentsPage";
-import SetSlotsPage from './pages/appointmentsPage/SetSlotsPage';
-import BedsPage from './pages/appointmentsPage/BedsPage';
-import './style.css';
 
 function App() {
   return (

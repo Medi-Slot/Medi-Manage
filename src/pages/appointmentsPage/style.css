@@ -1,0 +1,130 @@
+/* Main Layout */
+.main-layout {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+}
+
+/* Left Panel */
+.left-panel {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Right Panel */
+.right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Appointments Header */
+.appointments-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.appointments-title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.appointments-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Header Icons */
+.header-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.icon {
+  font-size: 20px;
+  color: #787676;
+  cursor: pointer;
+}
+
+/* Search Bar and Buttons Container */
+.search-bar-and-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+/* Search Bar */
+.search-bar-container {
+  position: relative;
+  flex-grow: 1;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #aeadad;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px 10px 10px 35px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Component Containers */
+.set-slots-container, .beds-container {
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(135, 127, 127, 0.1);
+  margin-top: 20px;
+}
+
+/* Section Header with blue underline */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #6fa1d7; /* Blue underline */
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+/* Add Button */
+.action-button {
+  padding: 8px 16px;
+  background-color: #3f82ca;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 15px; 
+}
+
+.action-button:hover {
+  background-color: #7599bf;
+}
