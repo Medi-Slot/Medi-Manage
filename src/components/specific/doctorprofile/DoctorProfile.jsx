@@ -29,9 +29,6 @@ const DoctorProfile = () => {
       <hr className="doctor-profile-divider" />
 
       <UpcomingAppointment size="1rem"/>
-      <div>
-        <PatientSatisfaction />
-      </div>
     </div>
   );
 };

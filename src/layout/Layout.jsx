@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { useLocation, Outlet } from "react-router-dom";
 import Navbar from "../components/common/navbar/Navbar";
 import Header from "../components/common/header/Header";
@@ -7,18 +7,27 @@ import NewPatient from "../components/specific/patientPage/newPatient/NewPatient
 import NewMedicine from "../components/specific/inventory/pharmaceuticals/NewMedicine";
 import SetSlot from "../components/specific/appointments/setSlot/SetSlot";
 import UpdateProduct from "../components/specific/inventory/updateProduct/updateProduct";
+import DoctorForm from "../components/specific/doctorform/DoctorForm"
 
 const Layout = () => {
   const [newPatient, setNewPatient] = useState(false);
   const [newMedicine, setNewMedicine] = useState(false);
   const [editInventory, setEditInventory] = useState(false);
   const [setSlot, setSetSlot] = useState(false);
+  const [setDoctor,setNewDoctor] = useState(false);
+  const [setDoctorProfile,setNewDoctorProfile]=useState(false);
+
   const location = useLocation();
 
   const handleNewMedicineClick = () => {
     setNewMedicine(true);
   };
-
+  const handleNewDoctorClick = () => {
+    setNewDoctor(true);
+  };
+  const handleDoctorProfileClick = () => {
+    setNewDoctorProfile(true);
+  };
   const handleIconClick = () => {
     setNewPatient(true);
   };
@@ -47,10 +56,11 @@ const Layout = () => {
             context={{
              
               handleIconClick,
-             
+              handleNewDoctorClick,
               handleNewMedicineClick,
               handleEditClick,
               handleAppointmentClick,
+              handleDoctorProfileClick,
             }}
          
           />
@@ -68,6 +78,8 @@ const Layout = () => {
           {newPatient && <NewPatient />}
           {newMedicine && <NewMedicine />}
           {editInventory && <UpdateProduct />}
+          {setDoctor && <DoctorForm />}
+          {setDoctorProfile && <DoctorProfile />}
         </section>
       </div>
     </>
