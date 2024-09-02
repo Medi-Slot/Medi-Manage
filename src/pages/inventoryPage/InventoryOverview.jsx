@@ -5,7 +5,7 @@ import "./InventoryOverview.css";
 import { MdModeEdit } from "react-icons/md";
 import { useParams, useOutletContext } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import { auth } from '../../Firebase'; // Ensure auth is correctly imported
+import { auth } from "../../Firebase"; // Ensure auth is correctly imported
 
 export default function InventoryOverview() {
   const dispatch = useDispatch();
@@ -29,7 +29,9 @@ export default function InventoryOverview() {
       }
 
       try {
-        const productDoc = await getDoc(doc(db, "Inventory", user.uid, category, productId));
+        const productDoc = await getDoc(
+          doc(db, "Inventory", user.uid, category, productId)
+        );
         if (productDoc.exists()) {
           setProduct({ id: productDoc.id, ...productDoc.data() });
         } else {
@@ -46,7 +48,49 @@ export default function InventoryOverview() {
     fetchProductDetails();
   }, [dispatch, category, productId]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div>
+        <div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "80vh",
+            }}
+          >
+            <div className="boxes">
+              <div className="box">
+                <div />
+                <div />
+                <div />
+                <div />
+              </div>
+              <div className="box">
+                <div />
+                <div />
+                <div />
+                <div />
+              </div>
+              <div className="box">
+                <div />
+                <div />
+                <div />
+                <div />
+              </div>
+              <div className="box">
+                <div />
+                <div />
+                <div />
+                <div />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -80,7 +124,7 @@ export default function InventoryOverview() {
             </div>
             <div className="inventory-overview-info-container">
               <p className="inventory-overview-label">Expiry Date</p>
-              <p>{product.expiryDate || 'N/A'}</p>
+              <p>{product.expiryDate || "N/A"}</p>
             </div>
           </div>
 
@@ -88,11 +132,11 @@ export default function InventoryOverview() {
           <div className="inventory-overview-grid">
             <div className="inventory-overview-info-container">
               <p className="inventory-overview-label">Supplier name</p>
-              <p>{product.supplierName || 'N/A'}</p>
+              <p>{product.supplierName || "N/A"}</p>
             </div>
             <div className="inventory-overview-info-container">
               <p className="inventory-overview-label">Contact Number</p>
-              <p>{product.contactNumber || 'N/A'}</p>
+              <p>{product.contactNumber || "N/A"}</p>
             </div>
           </div>
 
@@ -100,15 +144,15 @@ export default function InventoryOverview() {
           <div className="inventory-overview-grid">
             <div className="inventory-overview-info-container">
               <p className="inventory-overview-label">Opening Stock</p>
-              <p>{product.openingStock || 'N/A'}</p>
+              <p>{product.openingStock || "N/A"}</p>
             </div>
             <div className="inventory-overview-info-container">
               <p className="inventory-overview-label">Remaining Stock</p>
-              <p>{product.remainingStock || 'N/A'}</p>
+              <p>{product.remainingStock || "N/A"}</p>
             </div>
             <div className="inventory-overview-info-container">
               <p className="inventory-overview-label">Threshold Value</p>
-              <p>{product.thresholdValue || 'N/A'}</p>
+              <p>{product.thresholdValue || "N/A"}</p>
             </div>
           </div>
         </div>

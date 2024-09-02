@@ -33,42 +33,19 @@ const DoctorProfile = ({ doctorId }) => {
 
   if (!doctor) {
     return (
-      <div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-            height: "80vh",
-          }}
-        >
-          <div className="boxes">
-            <div className="box">
-              <div />
-              <div />
-              <div />
-              <div />
-            </div>
-            <div className="box">
-              <div />
-              <div />
-              <div />
-              <div />
-            </div>
-            <div className="box">
-              <div />
-              <div />
-              <div />
-              <div />
-            </div>
-            <div className="box">
-              <div />
-              <div />
-              <div />
-              <div />
-            </div>
-          </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          height: "50vh",
+        }}
+      >
+        <div class="three-body">
+          <div class="three-body__dot"></div>
+          <div class="three-body__dot"></div>
+          <div class="three-body__dot"></div>
         </div>
       </div>
     );
