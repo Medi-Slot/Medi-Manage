@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import './Inventory.css'; // Import your styles
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../redux/slices/titleSlice';
-import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
+import { getFirestore, collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
 import { auth } from '../../Firebase'; // Ensure auth is correctly imported
 import * as XLSX from 'xlsx';
+import { MdOutlineDeleteOutline } from "react-icons/md";
 
 const InventoryPage = () => {
   const dispatch = useDispatch();
   const { handleNewMedicineClick } = useOutletContext();
   
+  const { category } = useParams(); // Get the category from the route
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -33,11 +35,14 @@ const InventoryPage = () => {
       return;
     }
 
-    // Create a real-time listener for the "Medicines" collection
+    // Create a real-time listener for the selected category
     const unsubscribe = onSnapshot(
-      collection(db, "Inventory", user.uid, "Medicines"),
+      collection(db, "Inventory", user.uid, category), // Use category from route
       (snapshot) => {
-        const fetchedProducts = snapshot.docs.map(doc => doc.data());
+        const fetchedProducts = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setProducts(fetchedProducts);
         setLoading(false);
       },
@@ -51,7 +56,7 @@ const InventoryPage = () => {
     // Clean up the listener when the component unmounts
     return () => unsubscribe();
 
-  }, [dispatch]);
+  }, [dispatch, category]); // Dependency array now includes category
 
   const handleNextPage = () => {
     if (currentPage < Math.ceil(products.length / productsPerPage)) {
@@ -72,19 +77,41 @@ const InventoryPage = () => {
     XLSX.writeFile(wb, "Inventory.xlsx");
   };
 
+  const deleteMedicine = async (id, category) => {
+    const db = getFirestore();
+    const user = auth.currentUser;
+
+    if (!user || !user.uid) {
+      setError("User not authenticated!");
+      return;
+    }
+
+    try {
+      await deleteDoc(doc(db, "Inventory", user.uid, category, id));
+      console.log("Document successfully deleted!");
+    } catch (err) {
+      setError("Failed to delete product");
+      console.error("Error deleting product: ", err);
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="inventory-container">
       <div className="inventory-sub-container">
-        <h1 className='inventory-medicine-header'>Pharmaceuticals</h1>
+        <h1 className='inventory-medicine-header'>{category}</h1>
         <div className="inventory-actions">
           <button className="inventory-button" onClick={handleNewMedicineClick}>Add Product</button>
           <button className="inventory-button">Filters</button>
           <button className="inventory-button" onClick={downloadExcel}>Download all</button>
         </div>
       </div>
+      {products.length === 0 ? (
+        <div className="no-inventory-items">No Inventory Items</div>
+      ) : (
+        <>
       <table className="inventory-table">
         <thead>
           <tr>
@@ -107,6 +134,21 @@ const InventoryPage = () => {
               <td className={`inventory-availability ${product.availability ? product.availability.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}>
                 {product.availability || 'Unknown'}
               </td>
+              <td>
+                  <button
+                    onClick={() => deleteMedicine(product.id, category)} // Pass category from route
+                    className="patient-data-delete-button"
+                  >
+                    <MdOutlineDeleteOutline
+                      style={{
+                        fontSize: "1.7rem",
+                        marginTop: "0.5rem",
+                        color: "#FF8E26",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </button>
+                  </td>
             </tr>
           ))}
         </tbody>
@@ -116,6 +158,7 @@ const InventoryPage = () => {
         <span>Page {currentPage} of {Math.ceil(products.length / productsPerPage)}</span>
         <button onClick={handleNextPage} disabled={currentPage === Math.ceil(products.length / productsPerPage)}>Next</button>
       </div>
+      </>)}
     </div>
   );
 };
