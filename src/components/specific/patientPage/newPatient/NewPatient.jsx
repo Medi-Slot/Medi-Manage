@@ -1,11 +1,51 @@
-import React from "react";
+// NewPatient.js
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { auth, db } from "../../../../Firebase"; // Adjust path as necessary
 import "./style.css";
+import { addDoc, collection } from "firebase/firestore";
+import toast from "react-hot-toast";
 
 export default function NewPatient() {
+  const [formData, setFormData] = useState({
+    name: "",
+    dob: "",
+    gender: "",
+    weight: "",
+  });
+
+  const userId= auth.currentUser.uid;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const patientRef = collection(db, "Hospitals", userId, "Patients");
+      await addDoc(patientRef, formData);
+      toast.success("Patient  added successfully!");
+      setFormData({
+        name: "",
+        dob: "",
+        gender: "",
+        weight: "",
+      });
+    } catch (error) {
+      console.error("Error adding patient: ", error);
+      toast.error("Error adding patient.");
+    }
+  };
+
   return (
     <div className="new-patient-layout">
       <h1>Add Details</h1>
-      <form className="patient-form-new-patient-layout">
+      <form className="patient-form-new-patient-layout" onSubmit={handleSubmit}>
         <div className="form-group-new-patient-layout">
           <label htmlFor="name" className="label-new-patient-layout">
             Name
@@ -16,6 +56,8 @@ export default function NewPatient() {
             name="name"
             className="input-new-patient-layout"
             placeholder="Enter name"
+            value={formData.name}
+            onChange={handleChange}
           />
         </div>
 
@@ -28,6 +70,8 @@ export default function NewPatient() {
             id="dob"
             name="dob"
             className="input-new-patient-layout"
+            value={formData.dob}
+            onChange={handleChange}
           />
         </div>
 
@@ -39,6 +83,8 @@ export default function NewPatient() {
             id="gender"
             name="gender"
             className="input-new-patient-layout"
+            value={formData.gender}
+            onChange={handleChange}
           >
             <option value="">Select gender</option>
             <option value="male">Male</option>
@@ -57,6 +103,8 @@ export default function NewPatient() {
             name="weight"
             className="input-new-patient-layout"
             placeholder="Enter weight"
+            value={formData.weight}
+            onChange={handleChange}
           />
         </div>
 
