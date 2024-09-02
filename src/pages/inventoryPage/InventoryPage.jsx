@@ -3,31 +3,55 @@ import './Inventory.css'; // Import your styles
 import { useOutletContext } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../redux/slices/titleSlice';
+import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
+import { auth } from '../../Firebase'; // Ensure auth is correctly imported
+import * as XLSX from 'xlsx';
 
 const InventoryPage = () => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setTitle("Inventory")); //use the title u need
-  }, [dispatch]);
-
-
-  // Sample inventory data
   const { handleNewMedicineClick } = useOutletContext();
-  const [products, setProducts] = useState([
-    { name: 'paracetamol', price: 430, quantity: 43, threshold: 12, expiry: '11/12/22', availability: 'In-stock' },
-    { name: 'paracetamol', price: 257, quantity: 22, threshold: 12, expiry: '21/12/22', availability: 'Out of stock' },
-    { name: 'paracetamol', price: 405, quantity: 36, threshold: 9, expiry: '5/12/22', availability: 'In-stock' },
-    // Add more sample data as needed
-  ]);
-
+  
+  const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 10;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Pagination logic
+  const productsPerPage = 10;
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  useEffect(() => {
+    dispatch(setTitle("Inventory"));
+
+    const db = getFirestore();
+    const user = auth.currentUser;
+
+    if (!user || !user.uid) {
+      setError("User not authenticated!");
+      setLoading(false);
+      return;
+    }
+
+    // Create a real-time listener for the "Medicines" collection
+    const unsubscribe = onSnapshot(
+      collection(db, "Inventory", user.uid, "Medicines"),
+      (snapshot) => {
+        const fetchedProducts = snapshot.docs.map(doc => doc.data());
+        setProducts(fetchedProducts);
+        setLoading(false);
+      },
+      (err) => {
+        setError("Failed to fetch products");
+        console.error("Error fetching products: ", err);
+        setLoading(false);
+      }
+    );
+
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
+
+  }, [dispatch]);
 
   const handleNextPage = () => {
     if (currentPage < Math.ceil(products.length / productsPerPage)) {
@@ -41,15 +65,25 @@ const InventoryPage = () => {
     }
   };
 
+  const downloadExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(products);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Inventory");
+    XLSX.writeFile(wb, "Inventory.xlsx");
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <div className="inventory-container">
       <div className="inventory-sub-container">
-      <h1 className='inventory-medicine-header'>Pharmaceuticals</h1>
-      <div className="inventory-actions">
-        <button className="inventory-button" onClick={handleNewMedicineClick}>Add Product</button>
-        <button className="inventory-button">Filters</button>
-        <button className="inventory-button">Download all</button>
-      </div>
+        <h1 className='inventory-medicine-header'>Pharmaceuticals</h1>
+        <div className="inventory-actions">
+          <button className="inventory-button" onClick={handleNewMedicineClick}>Add Product</button>
+          <button className="inventory-button">Filters</button>
+          <button className="inventory-button" onClick={downloadExcel}>Download all</button>
+        </div>
       </div>
       <table className="inventory-table">
         <thead>
@@ -65,13 +99,13 @@ const InventoryPage = () => {
         <tbody>
           {currentProducts.map((product, index) => (
             <tr key={index}>
-              <td>{product.name}</td>
-              <td>₹{product.price}</td>
+              <td>{product.productName}</td>
+              <td>₹{product.buyingPrice}</td>
               <td>{product.quantity} Packets</td>
-              <td>{product.threshold} Packets</td>
-              <td>{product.expiry}</td>
-              <td className={`inventory-availability ${product.availability.replace(/\s+/g, '-').toLowerCase()}`}>
-                {product.availability}
+              <td>{product.thresholdValue} Packets</td>
+              <td>{product.expiryDate || 'N/A'}</td>
+              <td className={`inventory-availability ${product.availability ? product.availability.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}>
+                {product.availability || 'Unknown'}
               </td>
             </tr>
           ))}
@@ -82,7 +116,6 @@ const InventoryPage = () => {
         <span>Page {currentPage} of {Math.ceil(products.length / productsPerPage)}</span>
         <button onClick={handleNextPage} disabled={currentPage === Math.ceil(products.length / productsPerPage)}>Next</button>
       </div>
-      
     </div>
   );
 };
