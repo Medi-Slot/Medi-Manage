@@ -22,7 +22,7 @@ const UpcomingAppointment = ({size}) => {
             <div className="doctor-profile-appointment-info">
               <span className="doctor-profile-time">09:00 am - 09:30 am</span>
               <div className="doctor-profile-appointment-details">
-                <p className="doctor-profile--name">Surya A</p>
+                <p className="doctor-profile-patient-name">Surya A</p>
                 <p className="doctor-profile-doctor-name">Dr. Venkat</p>
               </div>
             </div>
