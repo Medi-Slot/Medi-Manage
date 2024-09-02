@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTitle } from "../../redux/slices/titleSlice";
 import UpcomingAppointment from "../../components/common/upcomingAppointment/UpcomingAppointment";
 import "./Appointments.css";
 import PatientData from "../../components/specific/appointments/patientData/PatientData";
-import DoctorGrid from "../../components/specific/doctorgride/DoctorGride";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
+import DoctorGrid from "../../components/specific/appointments/doctorGrid/DoctorGride";
 
 const Appointments = () => {
   const dispatch = useDispatch();
   const [bookSlotOpen, setBookSlotOpen] = useState(false);
   const [upcomingAppointmentOpen, setUpcomingAppointmentOpen] = useState(false);
+  const appointmentDetails=useSelector((state)=>state.appointment);
 
   const handleBookOpen = () => {
     setBookSlotOpen(!bookSlotOpen);
@@ -22,7 +23,9 @@ const Appointments = () => {
 
   useEffect(() => {
     dispatch(setTitle("Appointments"));
-  }, [dispatch]);
+    console.log(appointmentDetails); // Log the appointment details
+
+  }, [dispatch,appointmentDetails]);
 
   return (
     <div className="appointment-page-container">

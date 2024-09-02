@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./SetSlot.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setBedData, setTimeSlot } from "../../../../redux/slices/appointmentSlice";
+import { getFirestore, doc, setDoc, updateDoc, collection } from "firebase/firestore";
+import { auth } from "../../../../Firebase";
 
 const SetSlot = () => {
   const [selectedSlot, setSelectedSlot] = useState("2:00 PM");
@@ -8,7 +12,23 @@ const SetSlot = () => {
   const [view, setView] = useState("slots");
   const [bedStatus, setBedStatus] = useState({});
   const [timeSlots, setTimeSlots] = useState([]);
+  const [userId,setUserId]=useState();
+  const dispatch = useDispatch();
+  const appointmentDetails = useSelector((state) => state.appointment);
 
+  useEffect(() => {
+    // Check for current user and fetch patient data once the user is available
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUserId(user.uid);
+      } else {
+        setError("User not authenticated. Please log in.");
+        setLoading(false);
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup the subscription on unmount
+  }, []);
   useEffect(() => {
     // Generate beds based on noOfBeds
     const beds = {};
@@ -38,11 +58,18 @@ const SetSlot = () => {
 
   const handleSlotClick = (time) => {
     setSelectedSlot(time);
+    dispatch(setTimeSlot({
+      timeSlot: time,
+    }));
   };
 
   const handleBedClick = (bed) => {
     if (bedStatus[bed] === "available") {
       setBedStatus({ ...bedStatus, [bed]: "booked" });
+      dispatch(setBedData({
+        required: true,
+        bedId: bed,
+      }));
     } else if (bedStatus[bed] === "booked") {
       setBedStatus({ ...bedStatus, [bed]: "available" });
     }
@@ -63,6 +90,30 @@ const SetSlot = () => {
       } else if (type === "noOfBeds") {
         setNoOfBeds(e.target.value);
       }
+    }
+  };
+
+  const handleAllocateClick = () => {
+    console.log(appointmentDetails);
+    submitDataToFirebase();
+  };
+
+  const submitDataToFirebase = async () => {
+    const db = getFirestore();
+    const doctorId = appointmentDetails.doctor.docId; // Replace with the actual doctor ID
+    const appointmentId = `appointments${Date.now()}`; // Generate a unique ID for the appointment
+
+    try {
+      const appointmentRef = doc(db, `Hospitals/${userId}/Appointments/${doctorId}`);
+      await setDoc(appointmentRef, {
+        [appointmentId]: {
+          appointmentDetails
+          // Add other appointment details if needed
+        },
+      }, { merge: true });
+      console.log("Appointment data saved successfully!");
+    } catch (error) {
+      console.error("Error saving appointment data:", error);
     }
   };
 
@@ -168,7 +219,7 @@ const SetSlot = () => {
             <span className="setslot-legend-item blocked">Blocked</span>
           </div>
           <div className="setslot-bed-buttons">
-            <button className="setslot-allocate-button">Allocate</button>
+            <button className="setslot-allocate-button" onClick={handleAllocateClick}>Allocate</button>
             <button className="setslot-block-button">Block</button>
           </div>
         </>
