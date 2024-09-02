@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import InventoryItem from '../../components/specific/inventory/InventoryItem';
 import "./style.css"
 import { BsCapsulePill } from "react-icons/bs";
@@ -14,6 +14,8 @@ import { TbCylinderPlus } from "react-icons/tb";
 import { CgNotes } from "react-icons/cg";
 import { BsScissors } from "react-icons/bs";
 import NewMedicine from '../../components/specific/inventory/pharmaceuticals/NewMedicine';
+import { useDispatch } from 'react-redux';
+import { setTitle } from '../../redux/slices/titleSlice';
 
 
 
@@ -33,6 +35,13 @@ const inventoryItems = [
   ];
 
 const Inventory = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setTitle("Inventory")); 
+  }, [dispatch]);
+
+
   return (
     <div className="inventory-page-container">
       {inventoryItems.map((item, index) => (
