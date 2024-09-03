@@ -190,7 +190,7 @@ const InventoryPage = () => {
               </tr>
             </thead>
             <tbody>
-              {currentProducts.map((product) => (
+            {currentProducts.map((product) => (
                 <tr
                   key={product.id}
                   onClick={() => handleRowClick(product.id)}
