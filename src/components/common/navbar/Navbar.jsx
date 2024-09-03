@@ -65,7 +65,7 @@ const Navbar = () => {
       await signOut(auth);
       dispatch(logout());
       toast.success("Successfully logged out");
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.error("Logout Error:", error);
       toast.error("Failed to log out");
@@ -76,7 +76,6 @@ const Navbar = () => {
   const cancelLogout = () => {
     setShowLogoutPopup(false); // Hide the popup if cancel is clicked
   };
-
 
   const navItems = [
     { label: "Dashboard", icon: <PiGridFourFill />, route: "/dashboard" },
@@ -96,55 +95,54 @@ const Navbar = () => {
 
   return (
     <>
-    <div className="sidebar">
-      <div className="sidebar-logo-container">
-        <h2 className="sidebar-logo">Medi-Manage</h2>
-      </div>
-      <div className="sidebar-nav-items">
-        {navItems.map((item, index) => (
-          <NavLink
-            key={index}
-            to={item.route}
-            className={({ isActive }) =>
-              `sidebar-nav-item ${isActive ? "active" : ""}`
-            }
+      <div className="sidebar">
+        <div className="sidebar-logo-container">
+          <h2 className="sidebar-logo">Medi-Manage</h2>
+        </div>
+        <div className="sidebar-nav-items">
+          {navItems.map((item, index) => (
+            <NavLink
+              key={index}
+              to={item.route}
+              className={({ isActive }) =>
+                `sidebar-nav-item ${isActive ? "active" : ""}`
+              }
+            >
+              <i className="sidebar-fas">{item.icon}</i>
+              <span>{item.label}</span>
+            </NavLink>
+          ))}
+
+          <div
+            className="sidebar-nav-item"
+            onClick={handleLogout}
+            style={{ cursor: "pointer" }}
           >
-            <i className="sidebar-fas">{item.icon}</i>
-            <span>{item.label}</span>
-          </NavLink>
-        ))}
-
+            <i className="sidebar-fas fa-sign-out-alt">
+              <HiOutlineLogout />
+            </i>
+            <span>Logout</span>
+          </div>
+        </div>
         <div
-          className="sidebar-nav-item"
-          onClick={handleLogout}
-          style={{ cursor: "pointer" }}
+          className="sidebar-Nav-hospital"
+          onClick={() => navigate("/dashboard")}
         >
-          <i className="sidebar-fas fa-sign-out-alt">
-            <HiOutlineLogout />
-          </i>
-          <span>Logout</span>
-        </div>
-      </div>
-      <div
-        className="sidebar-Nav-hospital"
-        onClick={() => navigate("/dashboard")}
-      >
-        <img src={hp} alt="Hospital" className="sidebar-hospital-image" />
-        <div className="sidebar-hospital-info">
-          <div className="sidebar-hospital-name">
-            {loading ? "Loading..." : (hospitalName || "Hospital Name")}
-          </div>
-          <div className="sidebar-hospital-location">
-            {loading ? "" : (hospitalLocation || "Location")}
+          <img src={hp} alt="Hospital" className="sidebar-hospital-image" />
+          <div className="sidebar-hospital-info">
+            <div className="sidebar-hospital-name">
+              {loading ? "Loading..." : hospitalName || "Hospital Name"}
+            </div>
+            <div className="sidebar-hospital-location">
+              {loading ? "" : hospitalLocation || "Location"}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-     {showLogoutPopup && (
-      <Logout onConfirm={confirmLogout} onCancel={cancelLogout} />
-    )}
+      {showLogoutPopup && (
+        <Logout onConfirm={confirmLogout} onCancel={cancelLogout} />
+      )}
     </>
-
   );
 };
 
