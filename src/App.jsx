@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/landingPage/LandingPage";
 import Inventory from "./pages/inventoryPage/Inventory";
@@ -18,7 +18,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Firebase";
 import { setUser, logout } from "./redux/slices/authSlice";
 import NotFound from "./pages/notFound/NotFound";
-import ProtectedRoute from "./components/common/protectedRoute/ProtectedRoute";
+
 function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -42,61 +42,15 @@ function App() {
             <Route path="/signup" element={<Signup />} />
 
             <Route element={<Layout />}>
-              <Route
-                path="/inventory"
-                element={
-                  <ProtectedRoute>
-                    <Inventory />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/dashboard"
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/patient"
-                element={
-                  <ProtectedRoute>
-                    <PatientPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/inventory/:category"
-                element={
-                  <ProtectedRoute>
-                    <InventoryPage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/appointments"
-                element={
-                  <ProtectedRoute>
-                    <Appointments />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/doctor"
-                element={
-                  <ProtectedRoute>
-                    <DoctorPage />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="/inventory" element={<Inventory />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/patient" element={<PatientPage />} />
+              <Route path="/inventory/:category" element={<InventoryPage />} />
+              <Route path="/appointments" element={<Appointments />} />
+              <Route path="/doctor" element={<DoctorPage />} />
               <Route
                 path="/inventory/:category/:productId"
-                element={
-                  <ProtectedRoute>
-                    <InventoryOverview />
-                  </ProtectedRoute>
-                }
+                element={<InventoryOverview />}
               />
               <Route path="*" element={<NotFound />} />
             </Route>
