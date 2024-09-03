@@ -94,3 +94,31 @@
   border: 1px solid #d1d5db;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
+.logout-overlay {
+  position: fixed; /* Cover the entire viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2); /* Semi-transparent dark background */
+  backdrop-filter: blur(3px); /* Apply blur effect */
+  z-index: 999; /* Ensure it is behind the popup but above other content */
+}
+
+.logout-popup-card {
+  position: fixed; /* Ensure the popup is fixed relative to the viewport */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust position to center */
+  overflow: hidden;
+  background-color: #ffffff;
+  text-align: left;
+  border-radius: 0.5rem;
+  max-width: 290px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.269),
+    0 10px 10px -5px rgba(0, 0, 0, 0.317);
+  z-index: 1000; /* Ensure it is on top of other elements */
+}
+.logout-popup-actions button {
+  cursor: pointer;
+}

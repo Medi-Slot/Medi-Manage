@@ -204,6 +204,15 @@ const SetSlot = () => {
                 </button>
               ))}
             </div>
+            <div className="setslot-bed-buttons">
+              <button
+                className="setslot-allocate-button"
+                onClick={handleAllocateClick}
+              >
+                Allocate
+              </button>
+              <button className="setslot-block-button">Block</button>
+            </div>
           </div>
         </>
       ) : (

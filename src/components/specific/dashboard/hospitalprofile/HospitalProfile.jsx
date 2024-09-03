@@ -49,7 +49,27 @@ const HospitalProfile = () => {
     fetchHospitalDetails();
   }, [userId]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div>
+        {" "}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "50vh",
+          }}
+        >
+          <div class="three-body">
+            <div class="three-body__dot"></div>
+            <div class="three-body__dot"></div>
+            <div class="three-body__dot"></div>
+          </div>
+        </div>
+      </div>
+    );
 
   return (
     <div className="hospital-profile">
