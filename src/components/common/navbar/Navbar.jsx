@@ -14,11 +14,13 @@ import { logout } from "../../../redux/slices/authSlice";
 import toast from "react-hot-toast";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../../Firebase";
+import Logout from "./logout/Logout";
 
 const Navbar = () => {
   const [hospitalName, setHospitalName] = useState("");
   const [hospitalLocation, setHospitalLocation] = useState("");
   const [loading, setLoading] = useState(true); // Add loading state
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false); // State for logout popup visibility
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -54,7 +56,11 @@ const Navbar = () => {
     fetchHospitalDetails();
   }, [userId]); // Add userId to dependency array
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
+    setShowLogoutPopup(true); // Show the logout confirmation popup
+  };
+
+  const confirmLogout = async () => {
     try {
       await signOut(auth);
       dispatch(logout());
@@ -64,7 +70,13 @@ const Navbar = () => {
       console.error("Logout Error:", error);
       toast.error("Failed to log out");
     }
+    setShowLogoutPopup(false); // Hide the popup after logout
   };
+
+  const cancelLogout = () => {
+    setShowLogoutPopup(false); // Hide the popup if cancel is clicked
+  };
+
 
   const navItems = [
     { label: "Dashboard", icon: <PiGridFourFill />, route: "/dashboard" },
@@ -83,6 +95,7 @@ const Navbar = () => {
   ];
 
   return (
+    <>
     <div className="sidebar">
       <div className="sidebar-logo-container">
         <h2 className="sidebar-logo">Medi-Manage</h2>
@@ -127,6 +140,11 @@ const Navbar = () => {
         </div>
       </div>
     </div>
+     {showLogoutPopup && (
+      <Logout onConfirm={confirmLogout} onCancel={cancelLogout} />
+    )}
+    </>
+
   );
 };
 
