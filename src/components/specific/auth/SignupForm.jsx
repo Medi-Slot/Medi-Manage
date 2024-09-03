@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Auth.css";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../../Firebase.js";
@@ -15,7 +15,7 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const [userId, setUserId]=useState();
+  const [userId, setUserId] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -35,11 +35,15 @@ const SignupForm = () => {
 
     return () => unsubscribe(); // Cleanup the subscription on unmount
   }, []);
-  
+
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const { user } = userCredential;
       await updateProfile(user, { displayName: username });
       await setDoc(doc(db, "Hospitals", user.uid), {
@@ -47,13 +51,15 @@ const SignupForm = () => {
         location,
         specialty,
         email,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
       });
-      dispatch(signupSuccess({
-        uid: user.uid,
-        displayName: user.displayName,
-        email: user.email
-      }));
+      dispatch(
+        signupSuccess({
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+        })
+      );
       toast.success("User successfully created!");
       navigate("/dashboard");
     } catch (err) {
@@ -61,8 +67,6 @@ const SignupForm = () => {
       toast.error("Signup failed");
     }
   };
-  
-  
 
   return (
     <div>
@@ -74,6 +78,7 @@ const SignupForm = () => {
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
           />
         </div>
         <div className="form-control">
@@ -83,6 +88,7 @@ const SignupForm = () => {
             name="location"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
+            required
           />
         </div>
         <div className="form-control">
@@ -92,6 +98,7 @@ const SignupForm = () => {
             name="Specialty"
             value={specialty}
             onChange={(e) => setSpecialty(e.target.value)}
+            required
           />
         </div>
         <div className="form-control">
@@ -101,6 +108,7 @@ const SignupForm = () => {
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
         <div className="form-control">
@@ -110,13 +118,14 @@ const SignupForm = () => {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <p>
             Use 8 or more characters with a mix of letters, numbers & symbols
           </p>
         </div>
         <div className="form-control checkbox-container">
-          <input type="checkbox" name="agree" id="agree" />
+          <input type="checkbox" name="agree" id="agree" required />
           <label>
             By creating an account, you agree to our
             <span> Terms of use</span> and <span>Privacy Policy</span>

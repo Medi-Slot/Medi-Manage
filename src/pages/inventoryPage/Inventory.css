@@ -297,3 +297,33 @@
     transform: translate(100%, 100%);
   }
 }
+.inventory-table-item {
+  border-radius: 15px;
+}
+.inventory-table-item:hover {
+  cursor: pointer;
+  /* border: 2px solid #1366d942; */
+  border-radius: 15px;
+  background-color: #1366d913;
+}
+/* Apply the border-radius to the first and last cells of the row */
+.inventory-table-item td:first-child {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.inventory-table-item td:last-child {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+/* Optional: Adjust the border-radius on hover */
+.inventory-table-item:hover td:first-child {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.inventory-table-item:hover td:last-child {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}

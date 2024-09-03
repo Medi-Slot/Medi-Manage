@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 import Hospital from "../../../../assets/images/6634380.png";
+import { Link } from "react-router-dom";
 
 export default function Welcome() {
   return (
@@ -16,9 +17,14 @@ export default function Welcome() {
             healthcare services to help you live healthier and happier
           </p>
         </div>
-        <button className="landing-page-welcome-left-section-button">
-          Get Started
-        </button>
+        <Link
+          to="/signup"
+          className="landing-page-navbar-login-box-button-1-txt-link"
+        >
+          <button className="landing-page-welcome-left-section-button">
+            Get Started
+          </button>
+        </Link>
       </div>
       <img src={Hospital} alt="Hospital-img" />
     </div>
