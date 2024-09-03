@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../specific/doctorprofile/style.css";
-import { db, auth } from "../../../Firebase"; 
-import { collection, getDocs } from "firebase/firestore"; 
+import { db, auth } from "../../../Firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const UpcomingAppointment = ({ size }) => {
   const [appointments, setAppointments] = useState([]);
@@ -24,22 +24,48 @@ const UpcomingAppointment = ({ size }) => {
       }
     });
 
-    return () => unsubscribe(); 
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
     if (userId) {
       const fetchAppointments = async () => {
         try {
-          const appointmentsRef = collection(db, "Hospitals", userId, "Appointments");
+          const appointmentsRef = collection(
+            db,
+            "Hospitals",
+            userId,
+            "Appointments"
+          );
           const snapshot = await getDocs(appointmentsRef);
 
-          const appointmentsData = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          console.log(appointmentsData)
-          setAppointments(appointmentsData);
+          const appointmentsData = snapshot.docs.flatMap((doc) => {
+            const data = doc.data();
+            let parsedDetailsArray = [];
+
+            // Iterate over all keys in the document
+            Object.keys(data).forEach((key) => {
+              if (data[key]?.appointmentDetail) {
+                try {
+                  const parsedDetails = JSON.parse(data[key].appointmentDetail);
+                  parsedDetailsArray.push({
+                    id: doc.id,
+                    ...parsedDetails,
+                  });
+                } catch (error) {
+                  console.error(
+                    `Error parsing appointmentDetail for document ID: ${doc.id}`,
+                    error
+                  );
+                }
+              }
+            });
+
+            return parsedDetailsArray;
+          });
+
+          console.log(appointmentsData); // For debugging: check the structure of the parsed data
+          setAppointments(appointmentsData || []); // Ensure appointments is an array
           setLoading(false);
         } catch (error) {
           console.error("Error fetching appointments:", error);
@@ -55,13 +81,13 @@ const UpcomingAppointment = ({ size }) => {
   const today = new Date();
   const date = formatDate(today);
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  // if (error) {
-  //   return <div>{error}</div>;
-  // }
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div className="doctor-profile-upcoming-appointments">
@@ -70,20 +96,32 @@ const UpcomingAppointment = ({ size }) => {
         <span className="doctor-profile-appointment-date">{date}</span>
       </div>
       <ul>
-        {appointments.map((appointment, index) => (
-          <React.Fragment key={appointment.id}>
-            <li>
-              <div className="doctor-profile-appointment-info">
-                <span className="doctor-profile-time">{appointment.timeSlot}</span>
-                <div className="doctor-profile-appointment-details">
-                  <p className="doctor-profile-patient-name">{appointment.patientName}</p>
-                  <p className="doctor-profile-doctor-name">{appointment.doctorName}</p>
+        {Array.isArray(appointments) && appointments.length > 0 ? (
+          appointments.map((appointment, index) => (
+            <React.Fragment key={appointment.id + index}>
+              <li>
+                <div className="doctor-profile-appointment-info">
+                  <span className="doctor-profile-time">
+                    {appointment.timeSlot?.timeSlot || "No Time Slot"}
+                  </span>
+                  <div className="doctor-profile-appointment-details">
+                    <p className="doctor-profile-patient-name">
+                      {appointment.patient?.patName || "Unknown Patient"}
+                    </p>
+                    <p className="doctor-profile-doctor-name">
+                      {appointment.doctor?.docName || "Unknown Doctor"}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </li>
-            {index < appointments.length - 1 && <hr className="doctor-profile-appointment-divider" />}
-          </React.Fragment>
-        ))}
+              </li>
+              {index < appointments.length - 1 && (
+                <hr className="doctor-profile-appointment-divider" />
+              )}
+            </React.Fragment>
+          ))
+        ) : (
+          <li>No upcoming appointments.</li>
+        )}
       </ul>
     </div>
   );
