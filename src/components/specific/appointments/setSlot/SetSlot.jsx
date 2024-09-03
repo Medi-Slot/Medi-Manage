@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "./SetSlot.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setBedData, setTimeSlot } from "../../../../redux/slices/appointmentSlice";
-import { getFirestore, doc, setDoc, updateDoc, collection } from "firebase/firestore";
+import {
+  setBedData,
+  setTimeSlot,
+} from "../../../../redux/slices/appointmentSlice";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  updateDoc,
+  collection,
+} from "firebase/firestore";
 import { auth } from "../../../../Firebase";
+import toast from "react-hot-toast";
 
 const SetSlot = () => {
   const [selectedSlot, setSelectedSlot] = useState("2:00 PM");
@@ -12,7 +22,7 @@ const SetSlot = () => {
   const [view, setView] = useState("slots");
   const [bedStatus, setBedStatus] = useState({});
   const [timeSlots, setTimeSlots] = useState([]);
-  const [userId,setUserId]=useState();
+  const [userId, setUserId] = useState();
   const dispatch = useDispatch();
   const appointmentDetails = useSelector((state) => state.appointment);
 
@@ -33,7 +43,7 @@ const SetSlot = () => {
     // Generate beds based on noOfBeds
     const beds = {};
     for (let i = 1; i <= Number(noOfBeds); i++) {
-      beds[`00${i.toString().padStart(3, '0')}`] = "available";
+      beds[`00${i.toString().padStart(3, "0")}`] = "available";
     }
     setBedStatus(beds);
   }, [noOfBeds]);
@@ -48,7 +58,7 @@ const SetSlot = () => {
       const time = new Date(startTime.getTime() + i * interval);
       const hours = time.getHours();
       const minutes = time.getMinutes();
-      const ampm = hours >= 12 ? 'PM' : 'AM';
+      const ampm = hours >= 12 ? "PM" : "AM";
       const formattedHours = hours % 12 || 12;
       const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
       slots.push(`${formattedHours}:${formattedMinutes} ${ampm}`);
@@ -58,18 +68,22 @@ const SetSlot = () => {
 
   const handleSlotClick = (time) => {
     setSelectedSlot(time);
-    dispatch(setTimeSlot({
-      timeSlot: time,
-    }));
+    dispatch(
+      setTimeSlot({
+        timeSlot: time,
+      })
+    );
   };
 
   const handleBedClick = (bed) => {
     if (bedStatus[bed] === "available") {
       setBedStatus({ ...bedStatus, [bed]: "booked" });
-      dispatch(setBedData({
-        required: true,
-        bedId: bed,
-      }));
+      dispatch(
+        setBedData({
+          required: true,
+          bedId: bed,
+        })
+      );
     } else if (bedStatus[bed] === "booked") {
       setBedStatus({ ...bedStatus, [bed]: "available" });
     }
@@ -84,7 +98,7 @@ const SetSlot = () => {
   };
 
   const handleKeyDown = (e, type) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       if (type === "averageTime") {
         setAverageTime(e.target.value);
       } else if (type === "noOfBeds") {
@@ -102,17 +116,25 @@ const SetSlot = () => {
     const db = getFirestore();
     const doctorId = appointmentDetails.doctor.docId; // Replace with the actual doctor ID
     const appointmentId = `appointments${Date.now()}`; // Generate a unique ID for the appointment
-
+    const appointmentDetail = JSON.stringify(appointmentDetails);
     try {
-      const appointmentRef = doc(db, `Hospitals/${userId}/Appointments/${doctorId}`);
-      await setDoc(appointmentRef, {
-        [appointmentId]: {
-          appointmentDetails
-          // Add other appointment details if needed
+      const appointmentRef = doc(
+        db,
+        `Hospitals/${userId}/Appointments/${doctorId}`
+      );
+      await setDoc(
+        appointmentRef,
+        {
+          [appointmentId]: {
+            appointmentDetail,
+            // Add other appointment details if needed
+          },
         },
-      }, { merge: true });
-      console.log("Appointment data saved successfully!");
+        { merge: true }
+      );
+      toast.success("Appointment data saved successfully!");
     } catch (error) {
+      toast.error("Error saving appointment data");
       console.error("Error saving appointment data:", error);
     }
   };
@@ -187,10 +209,7 @@ const SetSlot = () => {
       ) : (
         <>
           <div className="setslot-beds-container">
-            <label
-              htmlFor="noOfBeds"
-              className="setslot-average-time-header"
-            >
+            <label htmlFor="noOfBeds" className="setslot-average-time-header">
               Beds Count
             </label>
             <input
@@ -219,7 +238,12 @@ const SetSlot = () => {
             <span className="setslot-legend-item blocked">Blocked</span>
           </div>
           <div className="setslot-bed-buttons">
-            <button className="setslot-allocate-button" onClick={handleAllocateClick}>Allocate</button>
+            <button
+              className="setslot-allocate-button"
+              onClick={handleAllocateClick}
+            >
+              Allocate
+            </button>
             <button className="setslot-block-button">Block</button>
           </div>
         </>
