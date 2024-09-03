@@ -33,17 +33,17 @@ export default function Navbar() {
             </Link>
           </span>
         </button>
-        <button className="landing-page-navbar-login-box-button-2">
-          <span className="landing-page-navbar-login-box-button-2-txt">
-            <Link
-              to="/signup"
-              className="landing-page-navbar-login-box-button-1-txt-link"
-            >
+        <Link
+          to="/signup"
+          className="landing-page-navbar-login-box-button-1-txt-link"
+        >
+          <button className="landing-page-navbar-login-box-button-2">
+            <span className="landing-page-navbar-login-box-button-2-txt">
               {" "}
               Sign Up
-            </Link>
-          </span>
-        </button>
+            </span>
+          </button>
+        </Link>
       </div>
     </div>
   );
