@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Inventory.css"; // Import your styles
+import "./InventoryPage.css"; // Import your styles
 import { useOutletContext, useParams, useNavigate } from "react-router-dom"; // Add useNavigate
 import { useDispatch } from "react-redux";
 import { setTitle } from "../../redux/slices/titleSlice";
