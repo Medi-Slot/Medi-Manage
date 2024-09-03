@@ -57,10 +57,7 @@ const Layout = () => {
   };
 
   return (
-    <div
-      className="layoutmain"
-      style={{ display: "flex", flexDirection: "row" }}
-    >
+    <div className="layoutmain" style={{ display: "flex", flexDirection: "row" }}>
       <Navbar />
       <div className="layout-container" style={{ width: "67%" }}>
         <Header />
