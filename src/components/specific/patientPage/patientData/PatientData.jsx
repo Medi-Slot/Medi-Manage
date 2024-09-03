@@ -3,7 +3,7 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { FaPlusCircle } from "react-icons/fa";
 import { useOutletContext } from "react-router-dom";
 import { auth, db } from "../../../../Firebase"; // Adjust path as necessary
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import "./style.css";
 import * as XLSX from "xlsx";
 
@@ -16,7 +16,7 @@ function PatientData() {
 
   useEffect(() => {
     // Check for current user and fetch patient data once the user is available
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribeAuth = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserId(user.uid);
       } else {
@@ -25,32 +25,30 @@ function PatientData() {
       }
     });
 
-    return () => unsubscribe(); // Cleanup the subscription on unmount
+    return () => unsubscribeAuth(); // Cleanup the subscription on unmount
   }, []);
 
   useEffect(() => {
     if (!userId) return;
 
-    // Fetch patient data from Firestore
-    const fetchPatients = async () => {
-      try {
-        setLoading(true);
-        const querySnapshot = await getDocs(
-          collection(db, "Hospitals", userId, "Patients")
-        );
-        const patientsData = querySnapshot.docs.map((doc) => ({
+    // Real-time listener for the Patients collection
+    const unsubscribeFirestore = onSnapshot(
+      collection(db, "Hospitals", userId, "Patients"),
+      (snapshot) => {
+        const patientsData = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
         setPatients(patientsData);
-      } catch (error) {
+        setLoading(false);
+      },
+      (error) => {
         setError("Error fetching patients: " + error.message);
-      } finally {
         setLoading(false);
       }
-    };
+    );
 
-    fetchPatients();
+    return () => unsubscribeFirestore(); // Cleanup the subscription on unmount
   }, [userId]);
 
   // Handle deleting a patient
@@ -94,14 +92,22 @@ function PatientData() {
           Patient Data
         </h2>
         <div className="patient-data-icon-container">
-        <FaPlusCircle
-          style={{ fontSize: "1.5rem", color: "#4A4A4A", cursor: "pointer" ,marginTop:"0.5rem"}}
-          onClick={handleIconClick}
-        />
-        <button className="patient-data-download-button" onClick={downloadExcel}>
+          <FaPlusCircle
+            style={{
+              fontSize: "1.5rem",
+              color: "#4A4A4A",
+              cursor: "pointer",
+              marginTop: "0.5rem",
+            }}
+            onClick={handleIconClick}
+          />
+          <button
+            className="patient-data-download-button"
+            onClick={downloadExcel}
+          >
             Download all
           </button>
-          </div>
+        </div>
       </div>
       <table className="patient-data-table">
         <thead className="patient-data-table-head">
@@ -133,17 +139,15 @@ function PatientData() {
                     <div className="three-body__dot"></div>
                   </div>
                 </div>
-              </td>{" "}
-              {/* Span across all columns */}
+              </td>
             </tr>
           ) : error ? (
             <tr>
-              <td colSpan="5">{error}</td> {/* Span across all columns */}
+              <td colSpan="5">{error}</td>
             </tr>
           ) : patients.length === 0 ? (
             <tr>
-              <td colSpan="5">No patients found.</td>{" "}
-              {/* Span across all columns */}
+              <td colSpan="5">No patients found.</td>
             </tr>
           ) : (
             patients.map((patient) => (
