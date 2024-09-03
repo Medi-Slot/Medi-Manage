@@ -191,7 +191,11 @@ const InventoryPage = () => {
             </thead>
             <tbody>
               {currentProducts.map((product) => (
-                <tr key={product.id} onClick={() => handleRowClick(product.id)}>
+                <tr
+                  key={product.id}
+                  onClick={() => handleRowClick(product.id)}
+                  className="inventory-table-item"
+                >
                   <td>{product.productName}</td>
                   <td>₹{product.buyingPrice}</td>
                   <td>{product.quantity} Packets</td>

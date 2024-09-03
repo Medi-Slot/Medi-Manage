@@ -1,6 +1,7 @@
 import React from "react";
 import MediManage from "../../../../assets/images/Medi-Manage_logo.png";
 import "./style.css";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
@@ -10,19 +11,37 @@ export default function Navbar() {
         <h2>Medi-Manage</h2>
       </div>
       <div className="landing-page-navbar-list">
-        <h3>About</h3>
-        <h3>Features</h3>
-        <h3>Testimonials</h3>
+        <h3>
+          <a href="#chooseus">About</a>
+        </h3>
+        <h3>
+          <a href="#facilities">Features</a>
+        </h3>
+        <h3>
+          <a href="#trust">Testimonials</a>
+        </h3>
       </div>
       <div className="landing-page-navbar-login-box">
         <button className="landing-page-navbar-login-box-button-1">
           <span className="landing-page-navbar-login-box-button-1-txt">
-            Sign In
+            <Link
+              to="/login"
+              className="landing-page-navbar-login-box-button-1-txt-link"
+            >
+              {" "}
+              Sign In
+            </Link>
           </span>
         </button>
         <button className="landing-page-navbar-login-box-button-2">
           <span className="landing-page-navbar-login-box-button-2-txt">
-            Sign Up
+            <Link
+              to="/signup"
+              className="landing-page-navbar-login-box-button-1-txt-link"
+            >
+              {" "}
+              Sign In
+            </Link>
           </span>
         </button>
       </div>

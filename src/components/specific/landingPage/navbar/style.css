@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Bruno+Ace+SC&family=Dongle&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+html {
+  scroll-behavior: smooth;
+}
+
 .landing-page-navbar {
   padding: 1% 3%;
   display: flex;
@@ -33,6 +37,10 @@
   transition: all 0.3s ease-in;
   cursor: pointer;
 }
+.landing-page-navbar-list h3 a {
+  text-decoration: none;
+  color: inherit;
+}
 .landing-page-navbar-list h3:hover {
   color: #057dcd;
 }
@@ -62,6 +70,10 @@
   font-optical-sizing: auto;
   font-style: normal;
   transition: all 0.3s ease-in; /* Apply transition to all properties with ease-in */
+}
+.landing-page-navbar-login-box-button-1-txt-link {
+  text-decoration: none;
+  color: inherit;
 }
 
 .landing-page-navbar-login-box-button-2 {
