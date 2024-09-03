@@ -5,6 +5,7 @@ import { useOutletContext } from "react-router-dom";
 import { auth, db } from "../../../../Firebase"; // Adjust path as necessary
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import "./style.css";
+import * as XLSX from "xlsx";
 
 function PatientData() {
   const { handleIconClick } = useOutletContext();
@@ -79,16 +80,28 @@ function PatientData() {
     }
   };
 
+  const downloadExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(patients);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "PatientData");
+    XLSX.writeFile(wb, "PatientData.xlsx");
+  };
+
   return (
     <div className="patient-data-container">
       <div className="patient-data-header">
         <h2 className="patient-data-h2" style={{ marginBottom: "0" }}>
           Patient Data
         </h2>
+        <div className="patient-data-icon-container">
         <FaPlusCircle
-          style={{ fontSize: "1.5rem", color: "#4A4A4A", cursor: "pointer" }}
+          style={{ fontSize: "1.5rem", color: "#4A4A4A", cursor: "pointer" ,marginTop:"0.5rem"}}
           onClick={handleIconClick}
         />
+        <button className="patient-data-download-button" onClick={downloadExcel}>
+            Download all
+          </button>
+          </div>
       </div>
       <table className="patient-data-table">
         <thead className="patient-data-table-head">
