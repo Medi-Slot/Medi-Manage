@@ -126,6 +126,7 @@ const DoctorGrid = () => {
             }}
           ></div>
           <div className="doctor-name">{doctor.doctorName}</div>
+          <div className="doctor-qualification">{doctor.qualification} </div>
         </div>
       ))}
     </div>

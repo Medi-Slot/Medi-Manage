@@ -7,17 +7,26 @@ import Facilities from "../../components/specific/landingPage/facilities/Facilit
 import Trust from "../../components/specific/landingPage/trust/Trust";
 import Footer from "../../components/specific/landingPage/footer/Footer";
 
-
 export default function LandingPage() {
   return (
     <div>
       <Navbar />
-      <Welcome />
-      <Statistics />
-      <ChooseUs />
-      <Facilities />
-      <Trust />
-      <Footer/>
+      <section id="welcome">
+        <Welcome />
+      </section>
+      <section id="statistics">
+        <Statistics />
+      </section>
+      <section id="chooseus">
+        <ChooseUs />
+      </section>
+      <section id="facilities">
+        <Facilities />
+      </section>
+      <section id="trust">
+        <Trust />
+      </section>
+      <Footer />
     </div>
   );
 }
