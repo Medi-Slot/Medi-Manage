@@ -4,7 +4,7 @@ import { setTitle } from "../../redux/slices/titleSlice";
 import "./InventoryOverview.css";
 import { MdModeEdit } from "react-icons/md";
 import { useParams, useOutletContext } from "react-router-dom";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, onSnapshot } from "firebase/firestore";
 import { auth } from "../../Firebase"; // Ensure auth is correctly imported
 
 export default function InventoryOverview() {
@@ -15,37 +15,47 @@ export default function InventoryOverview() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    dispatch(setTitle("Inventory Overview"));
+  const fetchProductDetails = () => {
+    const db = getFirestore();
+    const user = auth.currentUser;
 
-    const fetchProductDetails = async () => {
-      const db = getFirestore();
-      const user = auth.currentUser;
+    if (!user || !user.uid) {
+      setError("User not authenticated!");
+      setLoading(false);
+      return;
+    }
 
-      if (!user || !user.uid) {
-        setError("User not authenticated!");
-        setLoading(false);
-        return;
-      }
+    const productRef = doc(db, "Inventory", user.uid, category, productId);
 
-      try {
-        const productDoc = await getDoc(
-          doc(db, "Inventory", user.uid, category, productId)
-        );
-        if (productDoc.exists()) {
-          setProduct({ id: productDoc.id, ...productDoc.data() });
+    const unsubscribe = onSnapshot(
+      productRef,
+      (doc) => {
+        if (doc.exists()) {
+          setProduct({ id: doc.id, ...doc.data() });
         } else {
           setError("Product not found");
         }
-      } catch (err) {
+        setLoading(false);
+      },
+      (err) => {
         setError("Failed to fetch product details");
         console.error("Error fetching product details: ", err);
+        setLoading(false);
       }
+    );
 
-      setLoading(false);
+    // Cleanup subscription on component unmount
+    return () => unsubscribe();
+  };
+
+  useEffect(() => {
+    dispatch(setTitle("Inventory Overview"));
+    const unsubscribe = fetchProductDetails();
+
+    // Cleanup listener when the component unmounts
+    return () => {
+      if (unsubscribe) unsubscribe();
     };
-
-    fetchProductDetails();
   }, [dispatch, category, productId]);
 
   if (loading)
@@ -99,7 +109,7 @@ export default function InventoryOverview() {
         <h1 className="inventory-overview-title">Overview</h1>
         <button
           className="inventory-overview-edit-btn"
-          onClick={handleEditClick}
+          onClick={() => handleEditClick()}
         >
           <MdModeEdit style={{ paddingRight: "0.5rem" }} />
           Edit
@@ -136,15 +146,15 @@ export default function InventoryOverview() {
             </div>
             <div className="inventory-overview-info-container">
               <p className="inventory-overview-label">Contact Number</p>
-              <p>{product.contactNumber || "N/A"}</p>
+              <p>{product.supplierContact || "N/A"}</p>
             </div>
           </div>
 
           <h2 className="inventory-overview-section-title">Stock</h2>
           <div className="inventory-overview-grid">
             <div className="inventory-overview-info-container">
-              <p className="inventory-overview-label">Opening Stock</p>
-              <p>{product.openingStock || "N/A"}</p>
+              <p className="inventory-overview-label">Count</p>
+              <p>{product.productCount || "N/A"}</p>
             </div>
             <div className="inventory-overview-info-container">
               <p className="inventory-overview-label">Remaining Stock</p>
