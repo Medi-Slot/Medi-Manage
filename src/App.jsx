@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/landingPage/LandingPage";
 import Inventory from "./pages/inventoryPage/Inventory";
 import Layout from "./layout/Layout";
@@ -14,9 +14,10 @@ import InventoryPage from "./pages/inventoryPage/InventoryPage";
 import Appointments from "./pages/appointmentsPage/Appointments";
 import InventoryOverview from "./pages/inventoryPage/InventoryOverview";
 import DoctorPage from "./pages/doctorPage/DoctorPage";
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Firebase";
 import { setUser, logout } from "./redux/slices/authSlice";
+import NotFound from "./pages/notFound/NotFound";
 
 function App() {
   useEffect(() => {
@@ -47,7 +48,11 @@ function App() {
               <Route path="/inventory/:category" element={<InventoryPage />} />
               <Route path="/appointments" element={<Appointments />} />
               <Route path="/doctor" element={<DoctorPage />} />
-              <Route path="/inventory/:category/:productId" element={<InventoryOverview />} />
+              <Route
+                path="/inventory/:category/:productId"
+                element={<InventoryOverview />}
+              />
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
           <Toaster />
