@@ -40,7 +40,7 @@ export default function Navbar() {
               className="landing-page-navbar-login-box-button-1-txt-link"
             >
               {" "}
-              Sign In
+              Sign Up
             </Link>
           </span>
         </button>
