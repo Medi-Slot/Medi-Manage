@@ -15,7 +15,7 @@ function PatientData() {
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    // Check for current user and fetch patient data once the user is available
+    // Check for current user and fetch patient data onc
     const unsubscribeAuth = auth.onAuthStateChanged((user) => {
       if (user) {
         setUserId(user.uid);
