@@ -14,7 +14,7 @@ import { CgNotes } from "react-icons/cg";
 import { BsScissors } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { setTitle } from "../../redux/slices/titleSlice";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { TbMedicalCrossOff } from "react-icons/tb";
 
 const inventoryItems = [
@@ -82,10 +82,10 @@ const Inventory = () => {
   return (
     <div className="inventory-page-container">
       {inventoryItems.map((item, index) => (
-        <NavLink key={index} to={item.path} className="inventory-item-link">
+        <Link key={index} to={item.path} className="inventory-item-link">
           {/* Add className for styling if needed */}
           <InventoryItem name={item.name} icon={item.icon} />
-        </NavLink>
+        </Link>
       ))}
     </div>
   );
