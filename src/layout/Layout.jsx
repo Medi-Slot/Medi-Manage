@@ -74,10 +74,11 @@ const Layout = () => {
       </div>
       <section
         style={{
-          width: "300px",
+          width: "280px",
           backgroundColor: "white",
           boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
           padding: "20px",
+
         }}
       >
         {/* Conditionally render the component based on the activeComponent state */}
